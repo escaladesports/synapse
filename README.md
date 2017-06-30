@@ -10,3 +10,4 @@ WIP
 - Crawl entire page for hrefs and cache them
 	+ https://stackoverflow.com/questions/13802334/js-regex-to-find-href-of-several-a-tags
 - Define a selector for the content area
+- Minimum # of pages to crawl before starting to deliver results

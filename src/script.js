@@ -10,13 +10,15 @@ function Search(el){
 Search.prototype = {
 	contentSelector: 'body',
 	maxDepth: 10,
+	minDepth: 5,
 	findElements: require('./script/find-elements'),
 	attachEvents: require('./script/attach-events'),
 	fetchPage: require('./script/fetch-page'),
 	progress: require('./script/progress'),
 	search: require('./script/search'),
 	clearSearch: require('./script/clear-search'),
-	parse: require('./script/parse')
+	parse: require('./script/parse'),
+	query: require('./script/query')
 }
 
 window.search = new Search()
