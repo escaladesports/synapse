@@ -54,10 +54,14 @@
 	padding: 0;
 	list-style-type: none;
 	& li{
-		margin-bottom: 5px;
+		margin-bottom: 8px;
 	}
 	& a{
 		color: #fff;
 		text-decoration: none;
+		display: block;
+	}
+	& a:hover{
+		color: #aaa;
 	}
 }

@@ -1,4 +1,5 @@
 module.exports = function(str){
+	if(this.queryStr === el.value) return this
 	this.clearSearch()
 	console.log('searching ' + str)
 	this.inject()
