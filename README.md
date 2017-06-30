@@ -1,11 +1,10 @@
-# Search
+# Synapse Search
 
 A client side search plugin with no dependencies.
 
 WIP
 
 ## Todo
-- Activate inner search input
 - Minimum # of pages to crawl before starting to deliver results
 - Paginate
 - Live search
