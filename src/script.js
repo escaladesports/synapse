@@ -15,7 +15,8 @@ Search.prototype = {
 	fetchPage: require('./script/fetch-page'),
 	progress: require('./script/progress'),
 	search: require('./script/search'),
-	clearSearch: require('./script/clear-search')
+	clearSearch: require('./script/clear-search'),
+	parse: require('./script/parse')
 }
 
 window.search = new Search()

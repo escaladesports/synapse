@@ -9,14 +9,11 @@ module.exports = function(){
 	var oReq = new XMLHttpRequest()
 	oReq.addEventListener('load', function(){
 		$this.pageData[url] = this.responseText
+		$this.parse(url, this.responseText)
 		console.log($this.pageData)
 		$this.progress()
 
 	})
 	oReq.open('GET', url)
 	oReq.send()
-}
-
-function parse(){
-	const parser = new DOMParser()
 }
