@@ -9,6 +9,7 @@ WIP
 - Paginate
 - Live search
 	+ Trigger a search after 1s of inaction in the input
+- Display meta descriptions
 
 - Loading bar
 - Search icon in input
