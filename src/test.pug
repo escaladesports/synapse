@@ -2,8 +2,10 @@ doctype html
 html
 	head
 		title Search Test
-		link(type='text/css' rel='stylesheet' href='style.css')
+		link(type='text/css' rel='stylesheet' href='search-v1.css')
 	body
-
-		script(src='script.js')
+		input.search
+		script(src='search-v1.js')
 		script.
+			//search.url = 'https://zygote-api-staging.herokuapp.com/'
+			search.contentSelector = 'main'
