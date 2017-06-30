@@ -11,10 +11,15 @@ module.exports = function(){
 		</div>
 	`
 
-	// Close button event
-	const closeBtn = el.querySelector('.searchClose')
-	closeBtn.addEventListener('click', () => {
-		this.close()
+
+	// Close events
+	el.addEventListener('click', e => {
+		switch(e.target.className){
+			case 'searchClose':
+			case 'search':
+				this.close()
+				break
+		}
 	}, false)
 
 	this.els.results = el.querySelector('.searchResults')

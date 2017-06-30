@@ -6,7 +6,6 @@ WIP
 
 ## Todo
 - Escape key should close search
-- Clicking outside modal should close search
 - Activate inner search input
 - Minimum # of pages to crawl before starting to deliver results
 - Paginate
