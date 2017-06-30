@@ -1,8 +1,6 @@
 import lunr from 'lunr'
 module.exports = function(){
 	const $this = this
-	console.log('PAGE DATA:')
-	console.log(this.pageData)
 	const idx = lunr(function(){
 		this.field('title')
 		this.field('content')
@@ -12,4 +10,5 @@ module.exports = function(){
 	})
 	const results = idx.search(this.queryStr)
 	console.log(results)
+	this.render(results)
 }
