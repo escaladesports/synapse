@@ -4,6 +4,7 @@ module.exports = function(url, str){
 	const main = doc.querySelector(this.contentSelector)
 	const links = doc.querySelectorAll('a')
 	const title = doc.querySelector('title')
+	const description = doc.querySelector('meta[name="description"]')
 	for(let i = 0; i < links.length; i++){
 		if(this.maxDepth && this.pages.length >= this.maxDepth){
 			break
@@ -26,6 +27,9 @@ module.exports = function(url, str){
 	}
 	if(main){
 		this.pageData[url].content = main.textContent.replace(regSpace, ' ')
+	}
+	if(description){
+		this.pageData[url].description = description.getAttribute('content')
 	}
 }
 const regTag = />/g

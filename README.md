@@ -10,6 +10,8 @@ WIP
 - Live search
 	+ Trigger a search after 1s of inaction in the input
 - Display meta descriptions
+- Change class names to synapse
+- Trigger search in inputs on enter
 
 - Loading bar
 - Search icon in input

@@ -16,6 +16,7 @@
 	z-index: 1000;
 	overflow-x: auto;
 	padding: 30px;
+	color: #ccc;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 	text-rendering: optimizeLegibility;
 	letter-spacing: 1px;
@@ -54,15 +55,26 @@
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
+	line-height: 1.8em;
 	& li{
-		margin-bottom: 8px;
+		margin: 30px 0;
 	}
 	& a{
-		color: #fff;
 		text-decoration: none;
 		display: block;
 	}
 	& a:hover{
-		color: #aaa;
+		opacity: .8;
 	}
+}
+.synapseTitle, .synapseDesc{
+	display: block;
+}
+.synapseTitle{
+	color: #fff;
+	font-size: 1.1em;
+}
+.synapseDesc{
+	color: #ccc;
+	font-size: .9em;
 }

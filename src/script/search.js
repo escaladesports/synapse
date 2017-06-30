@@ -1,8 +1,9 @@
 module.exports = function(str){
+	console.log('Searching ' + str)
+	this.open()
 	if(this.queryStr === str) return this
 	this.clearSearch()
 	this.inject()
-	this.open()
 	this.queryStr = str
 	this.pageProgress = 0
 	// Add URL if none exist yet

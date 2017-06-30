@@ -5,6 +5,7 @@ module.exports = function(){
 	const idx = lunr(function(){
 		this.field('title')
 		this.field('content')
+		this.field('description')
 		for(let i in $this.pageData){
 			this.add($this.pageData[i])
 		}

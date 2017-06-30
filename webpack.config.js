@@ -16,7 +16,7 @@ module.exports = {
 	},
 	context: path.resolve(__dirname, './src'),
 	entry: {
-		search: [
+		synapse: [
 			'./script.js',
 			'./style.css',
 			'./test.pug'
