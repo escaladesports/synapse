@@ -12,13 +12,20 @@ module.exports = function(){
 	`
 
 
-	// Close events
+	// Close on click
 	el.addEventListener('click', e => {
 		switch(e.target.className){
 			case 'searchClose':
 			case 'search':
 				this.close()
 				break
+		}
+	}, false)
+
+	// Close on escape key
+	el.addEventListener('keyup', e => {
+		if(e.keyCode === 27){
+			this.close()
 		}
 	}, false)
 

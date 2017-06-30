@@ -9,6 +9,5 @@ module.exports = function(){
 		}
 	})
 	const results = idx.search(this.queryStr)
-	console.log(results)
 	this.render(results)
 }
