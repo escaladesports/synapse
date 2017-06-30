@@ -31,6 +31,9 @@ module.exports = function(){
 
 	this.els.results = el.querySelector('.searchResults')
 	this.els.innerInput = el.querySelector('.searchInput')
+	this.els.innerInput.addEventListener('change', () => {
+		this.search(this.els.innerInput.value)
+	}, false)
 	const body = document.getElementsByTagName('body')[0]
 	if(body) body.appendChild(el)
 	this.injected = true
