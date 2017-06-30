@@ -1,8 +1,8 @@
+import { add as addClass } from './class-list'
 module.exports = function(el = document){
 	const inputs = el.querySelectorAll('.searchInput:not(.searchProcessed)')
-	console.log(inputs)
 	for(let i = inputs.length; i--;){
-		inputs[i].className += ' searchProcessed'
+		addClass(inputs[i], 'searchProcessed')
 		this.els.inputs.push(inputs[i])
 	}
 }

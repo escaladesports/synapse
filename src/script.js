@@ -3,7 +3,6 @@ function Search(el){
 		inputs: [],
 		body: document.getElementsByTagName('body')[0]
 	}
-	console.log(this.els.body)
 	this.pages = []
 	this.pageData = {}
 	this.results = []
