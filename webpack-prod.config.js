@@ -36,8 +36,10 @@ module.exports = {
 				//exclude: [/node_modules/],
 				use: [{
 					loader: 'babel-loader',
-					options: { presets: ['es2015'] },
-					plugins: [ 'transform-remove-console' ]
+					options: {
+						presets: [ 'es2015' ],
+						plugins: [ 'transform-remove-console' ]
+					},
 				}]
 			},
 			{
