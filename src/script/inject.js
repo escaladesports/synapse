@@ -1,13 +1,21 @@
 module.exports = function(){
 	if(this.injected === true) return this
+	console.log('Injecting template...')
 	const el = document.createElement('div')
 	el.classList = 'synapse'
 	el.innerHTML = `
 		<div class="synapseClose">&#215;</div>
 		<div class="synapseModal">
 			<input class="synapseInput" type="text" />
-			<ul class='synapseResults'>
+			<ul class="synapseResults">
 			</ul>
+			<div class="synapseLoader">
+				<div class="synapseLoadAnim">
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
 		</div>
 	`
 
@@ -29,8 +37,10 @@ module.exports = function(){
 		}
 	}, false)
 
+	this.els.container = el
 	this.els.results = el.querySelector('.synapseResults')
 	this.els.innerInput = el.querySelector('.synapseInput')
+
 	this.els.innerInput.addEventListener('change', () => {
 		this.search(this.els.innerInput.value)
 	}, false)

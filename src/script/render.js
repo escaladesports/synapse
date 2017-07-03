@@ -1,4 +1,5 @@
 module.exports = function(list){
+	console.log('Rendering results...')
 	for(let i = 0; i < list.length; i++){
 		const el = document.createElement('li')
 		const url = list[i].ref
@@ -10,8 +11,6 @@ module.exports = function(list){
 		`
 		this.els.results.appendChild(el)
 	}
-	if(this.els.innerInput){
-		this.els.innerInput.value = this.queryStr
-		this.els.innerInput.focus()
-	}
+	this.hideLoader()
+	return this
 }

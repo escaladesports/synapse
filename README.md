@@ -6,12 +6,12 @@ WIP
 
 ## Todo
 - Minimum # of pages to crawl before starting to deliver results
-- Paginate
+- Infinite loading
 - Live search
 	+ Trigger a search after 1s of inaction in the input
 - Display meta descriptions
-- Change class names to synapse
 - Trigger search in inputs on enter
+- Load in text immediately
 
 - Loading bar
 - Search icon in input

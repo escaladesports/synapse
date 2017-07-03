@@ -1,4 +1,4 @@
-function Search(el){
+function Synapse(el){
 	this.els = {
 		inputs: [],
 		body: document.getElementsByTagName('body')[0]
@@ -9,9 +9,13 @@ function Search(el){
 	this.pageProgress = -1
 	this.activateInputs()
 	this.attachEvents()
+
+	this.field('title')
+	this.field('content')
+	this.field('description')
 	return this
 }
-Search.prototype = {
+Synapse.prototype = {
 	contentSelector: 'body',
 	maxDepth: 10,
 	minDepth: 5,
@@ -26,7 +30,9 @@ Search.prototype = {
 	parse: require('./script/parse'),
 	query: require('./script/query'),
 	inject: require('./script/inject'),
-	render: require('./script/render')
+	render: require('./script/render'),
+	showLoader: require('./script/show-loader'),
+	hideLoader: require('./script/hide-loader')
 }
 
-window.search = new Search()
+window.synapse = new Synapse()
