@@ -1,12 +1,12 @@
 module.exports = function(){
 	if(this.injected === true) return this
 	const el = document.createElement('div')
-	el.classList = 'search'
+	el.classList = 'synapse'
 	el.innerHTML = `
-		<div class="searchClose">&#215;</div>
-		<div class="searchModal">
-			<input class="searchInput" type="text" />
-			<ul class='searchResults'>
+		<div class="synapseClose">&#215;</div>
+		<div class="synapseModal">
+			<input class="synapseInput" type="text" />
+			<ul class='synapseResults'>
 			</ul>
 		</div>
 	`
@@ -15,8 +15,8 @@ module.exports = function(){
 	// Close on click
 	el.addEventListener('click', e => {
 		switch(e.target.className){
-			case 'searchClose':
-			case 'search':
+			case 'synapseClose':
+			case 'synapse':
 				this.close()
 				break
 		}
@@ -29,8 +29,8 @@ module.exports = function(){
 		}
 	}, false)
 
-	this.els.results = el.querySelector('.searchResults')
-	this.els.innerInput = el.querySelector('.searchInput')
+	this.els.results = el.querySelector('.synapseResults')
+	this.els.innerInput = el.querySelector('.synapseInput')
 	this.els.innerInput.addEventListener('change', () => {
 		this.search(this.els.innerInput.value)
 	}, false)
