@@ -9,10 +9,6 @@ function Synapse(el){
 	this.pageProgress = -1
 	this.activateInputs()
 	this.attachEvents()
-
-	this.field('title')
-	this.field('content')
-	this.field('description')
 	return this
 }
 Synapse.prototype = {
