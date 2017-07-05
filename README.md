@@ -5,7 +5,7 @@ A client side search plugin with no dependencies.
 WIP
 
 ## Todo
-- Prioritize URLs containing search terms before creating batch
+- Search all existing batches and aggregate results
 - Search all existing batches + 1 extra on first crawl
 - Minimum # of batches to search before giving up
 - Message if no results

@@ -7,11 +7,11 @@ const batches = []
 const displayContent = {}
 const threadReqs = {}
 let threadReqId = 0
+let batchLimit = 6
+let matchMinimum = 0
 let replaceDomain
 let hostname
 let queryStr
-let batchLimit = 8
-let matchMinimum = 0
 
 self.addEventListener('message', e => {
 	// If recieving DOM content
@@ -167,11 +167,13 @@ function createIndex(batchNum, arr){
 		if(index > -1){
 			urls.splice(index, 1)
 		}
-		parsedUrls.push(page.id)
+		if(page.id){
+			parsedUrls.push(page.id)
+		}
 		for(let i in page.links){
 			if(
 				urls.indexOf(page.links[i]) === -1 &&
-				parsedUrls.indexOf(page.links[i])
+				parsedUrls.indexOf(page.links[i]) === -1
 			){
 				urls.push(page.links[i])
 			}
@@ -182,11 +184,12 @@ function createIndex(batchNum, arr){
 
 }
 
-function createBatch(batchNum, curUrls, returnPages){
+function createBatch(batchNum, curUrls, returnPages, curParsedUrls){
 	return new Promise((resolve, reject) => {
 		if(!curUrls){
 			console.log('Creating batch...')
 			curUrls = []
+			curParsedUrls = []
 			for(let i = 0; i < urls.length; i++){
 				curUrls.push(urls[i])
 			}
@@ -207,7 +210,9 @@ function createBatch(batchNum, curUrls, returnPages){
 					if(index > -1){
 						curUrls.splice(index, 1)
 					}
-					parsedUrls.push(page.url)
+					if(page.url){
+						curParsedUrls.push(page.url)
+					}
 
 					// Add new links
 					for(let i = page.links.length; i--;){
@@ -220,7 +225,8 @@ function createBatch(batchNum, curUrls, returnPages){
 						}
 						if(
 							curUrls.indexOf(page.links[i]) === -1 &&
-							parsedUrls.indexOf(page.links[i])
+							curParsedUrls.indexOf(page.links[i]) === -1 &&
+							parsedUrls.indexOf(page.links[i]) === -1
 						){
 							curUrls.push(page.links[i])
 						}
@@ -236,7 +242,7 @@ function createBatch(batchNum, curUrls, returnPages){
 				}
 				// If not, keep going
 				else{
-					createBatch(batchNum, curUrls, returnPages)
+					createBatch(batchNum, curUrls, returnPages, curParsedUrls)
 						.then(resolve)
 						.catch(reject)
 				}
@@ -255,6 +261,7 @@ function searchBatch(query, index){
 		if(outcome[i].score < matchMinimum) continue
 		results[i] = displayContent[outcome[i].ref]
 	}
+	console.log(parsedUrls)
 	self.postMessage(JSON.stringify({
 		query: query,
 		results: results

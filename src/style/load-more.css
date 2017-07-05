@@ -1,11 +1,16 @@
 .loadMore{
 	display: inline-block;
 	border: 1px solid #fff;
+	color: #fff;
 	margin: 10px auto;
 	padding: 10px 30px;
 	text-transform: uppercase;
 	cursor: pointer;
 	user-select: none;
+	border-radius: 50px;
+	&:hover{
+		opacity: .8;
+	}
 }
 .synapseLoading{
 	& .loadMore{
