@@ -17,4 +17,3 @@ WIP
 - matchMinimum as option
 - Batch limit option
 - Search icon in input
-- Mobile close button placement?
