@@ -27,6 +27,8 @@ let threadReqId = 0
 let replaceDomain
 let hostname
 let queryStr
+let batchLimit = 8
+let matchMinimum = .005
 
 self.addEventListener('message', e => {
 
@@ -103,7 +105,7 @@ function fetchPages(urls, batchNum){
 		// Get URLs to fetch
 		const fetches = []
 		for(let i = 0; i < urls.length; i++){
-			if(fetches.length >= 10){
+			if(fetches.length >= batchLimit){
 				break
 			}
 			fetches.push(fetchPage(urls[i]))
@@ -240,7 +242,7 @@ function createBatch(batchNum, curUrls, returnPages){
 
 
 				// If we've found enough
-				if(returnPages.length >= 10 || curUrls.length === 0){
+				if(returnPages.length >= batchLimit || curUrls.length === 0){
 					createIndex(batchNum, returnPages)
 					resolve()
 				}
@@ -261,6 +263,7 @@ function searchBatch(query, index){
 	const outcome = index.search(query)
 	const results = []
 	for(let i = 0; i < outcome.length; i++){
+		if(outcome[i].score < matchMinimum) continue
 		results[i] = displayContent[outcome[i].ref]
 	}
 	self.postMessage(JSON.stringify({
