@@ -11,7 +11,7 @@ module.exports = function(data){
 	for(let i = 0; i < links.length; i++){
 		const href = links[i].href
 		const str = links[i].getAttribute('href')
-		if(href && str !== '#'){
+		if(href && str !== '#' && href.indexOf('http') === 0){
 			obj.links.push(href)
 		}
 	}

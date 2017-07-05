@@ -1,23 +1,6 @@
-/*
-// Input:
-{
-	// Starting URL to crawl
-	url: '',
-	queryStr: '',
-	// Which batch we are on
-	batch: 0,
-	batchLimit: 10
-}
-// Output:
-{
-	queryStr: '',
-	results: []
-}
-
-*/
-
 import lunr from 'lunr'
 import getHostname from './script/get-hostname'
+import prioritize from './script/prioritize-urls'
 const urls = []
 const parsedUrls = []
 const batches = []
@@ -28,17 +11,16 @@ let replaceDomain
 let hostname
 let queryStr
 let batchLimit = 8
-let matchMinimum = .005
+let matchMinimum = 0
 
 self.addEventListener('message', e => {
-
-
-
+	// If recieving DOM content
 	if('reqId' in e.data){
 		console.log('Recieved DOM content from main thread')
 		threadReqs[e.data.reqId] = e.data.content
 		return
 	}
+	// If recieving query
 	else if(e.data.query){
 		console.log(`Starting search for ${e.data.query}`)
 		// Add starting URL if necessary
@@ -77,9 +59,6 @@ self.addEventListener('message', e => {
 			})
 		}
 	}
-
-
-
 }, false)
 
 
@@ -93,7 +72,12 @@ function fetchPage(url){
 				data: this.responseText
 			})
 		})
-		req.addEventListener('error', reject)
+		req.addEventListener('error', e => {
+			resolve({
+				id: url,
+				data: ''
+			})
+		})
 		req.open('GET', url)
 		req.send()
 	})
@@ -206,6 +190,7 @@ function createBatch(batchNum, curUrls, returnPages){
 			for(let i = 0; i < urls.length; i++){
 				curUrls.push(urls[i])
 			}
+			prioritize(curUrls, queryStr)
 			returnPages = []
 		}
 		fetchPages(curUrls, batchNum)
@@ -216,14 +201,16 @@ function createBatch(batchNum, curUrls, returnPages){
 				for(let i = 0; i < arr.length; i++){
 					returnPages.push(arr[i])
 
-					// Add new pages
+					// Remove page just crawled
 					const page = arr[i]
 					let index = curUrls.indexOf(page.url)
 					if(index > -1){
 						curUrls.splice(index, 1)
 					}
 					parsedUrls.push(page.url)
-					for(let i in page.links){
+
+					// Add new links
+					for(let i = page.links.length; i--;){
 						if(replaceDomain){
 							let link = page.links[i]
 							link = link.split('//')[1].split('/')
@@ -238,6 +225,7 @@ function createBatch(batchNum, curUrls, returnPages){
 							curUrls.push(page.links[i])
 						}
 					}
+					prioritize(curUrls, queryStr)
 				}
 
 
@@ -256,6 +244,7 @@ function createBatch(batchNum, curUrls, returnPages){
 			.catch(reject)
 	})
 }
+
 
 function searchBatch(query, index){
 	if(query !== queryStr) return
