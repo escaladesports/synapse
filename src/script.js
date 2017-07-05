@@ -33,7 +33,7 @@ Synapse.prototype = {
 }
 
 // Check for web worker support
-if(window.Worker && false){
+if(window.Worker){
 	window.synapse = new Synapse()
 }
 else{
