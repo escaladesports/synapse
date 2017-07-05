@@ -1,10 +1,10 @@
+import getHostname from './get-hostname'
 module.exports = function(str){
 	console.log('Searching ' + str)
 	this.open()
 	if(this.queryStr === str) return this
 	this.clearSearch()
 	this.inject()
-	this.showLoader()
 	this.queryStr = str
 	if(this.els.innerInput){
 		this.els.innerInput.value = this.queryStr
@@ -13,7 +13,9 @@ module.exports = function(str){
 	this.pageProgress = 0
 	// Add URL if none exist yet
 	if(!this.pages.length){
-		this.pages[0] = this.url || document.location.href
+		const url = this.url || document.location.href
+		this.pages[0] = url
+		this.hostname = getHostname(url)
 	}
 	return this.fetchPage()
 }

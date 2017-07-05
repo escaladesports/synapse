@@ -1,3 +1,4 @@
+import getHostname from './get-hostname'
 module.exports = function(url, str){
 	str = str.replace(regTag, '> ')
 	const doc = new DOMParser().parseFromString(str, 'text/html')
@@ -15,7 +16,7 @@ module.exports = function(url, str){
 			href.splice(0, 3)
 			href = `${this.replaceDomain}${href.join('/')}`
 		}
-		if(this.pages.indexOf(href) === -1 && !(href in this.pageData)){
+		if(getHostname(href) === this.hostname && this.pages.indexOf(href) === -1 && !(href in this.pageData)){
 			this.pages.push(href)
 		}
 	}
