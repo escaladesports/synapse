@@ -41,8 +41,8 @@ module.exports = function(){
 	// Load more
 	el.querySelector('.loadMore').addEventListener('click', e => {
 		console.log('more...')
-		this.pageProgress = 0
-		this.fetchPage()
+		this.pageProgress++
+		this.query()
 	}, false)
 
 	this.els.container = el
