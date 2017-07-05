@@ -4,9 +4,11 @@ self.addEventListener('message', e => {
 		this.field('title')
 		this.field('content')
 		this.field('description')
-		for(let i in e.data){
-			this.add(e.data[i])
+		for(let i in e.data.pageData){
+			this.add(e.data.pageData[i])
 		}
 	})
-	self.postMessage(JSON.stringify(index.toJSON()))
+	const results = index.search(e.data.queryStr)
+	self.postMessage(JSON.stringify(results))
+
 }, false)

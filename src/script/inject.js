@@ -9,6 +9,7 @@ module.exports = function(){
 			<input class="synapseInput" type="text" />
 			<ul class="synapseResults">
 			</ul>
+			<div class="loadMore">Load More</div>
 			<div class="synapseLoader">
 				<div class="synapseLoadAnim">
 					<div></div>
@@ -35,6 +36,13 @@ module.exports = function(){
 		if(e.keyCode === 27){
 			this.close()
 		}
+	}, false)
+
+	// Load more
+	el.querySelector('.loadMore').addEventListener('click', e => {
+		console.log('more...')
+		this.pageProgress = 0
+		this.fetchPage()
 	}, false)
 
 	this.els.container = el

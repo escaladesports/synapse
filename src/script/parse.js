@@ -15,7 +15,7 @@ module.exports = function(url, str){
 			href.splice(0, 3)
 			href = `${this.replaceDomain}${href.join('/')}`
 		}
-		if(this.pages.indexOf(href) === -1){
+		if(this.pages.indexOf(href) === -1 && !(href in this.pageData)){
 			this.pages.push(href)
 		}
 	}
@@ -30,6 +30,11 @@ module.exports = function(url, str){
 	}
 	if(description){
 		this.pageData[url].description = description.getAttribute('content')
+	}
+	// Remove from "to crawl" list
+	const index = this.pages.indexOf(url)
+	if(index > -1){
+		this.pages.splice(index, 1)
 	}
 }
 const regTag = />/g
