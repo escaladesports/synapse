@@ -22,8 +22,8 @@ module.exports = {
 			'./style.css',
 			'./test.pug'
 		],
-		'query-worker': [
-			'./query-worker.js'
+		'fetch-worker': [
+			'./fetch-worker.js'
 		]
 	},
 	output: {

@@ -21,39 +21,55 @@ import getHostname from './script/get-hostname'
 const urls = []
 const parsedUrls = []
 const batches = []
+const displayContent = {}
+const threadReqs = {}
+let threadReqId = 0
 let hostname
 let queryStr
 
 self.addEventListener('message', e => {
 
-	// Add starting URL if necessary
-	if(
-		e.data.url && parsedUrls.indexOf(e.data.url) === -1 &&
-		urls.indexOf(e.data.url) === -1
-	){
-		hostname = getHostname(e.data.url)
-		urls.push(e.data.url)
+
+
+	if('reqId' in e.data){
+		console.log('Recieved DOM content from main thread')
+		threadReqs[e.data.reqId] = e.data.content
+		return
+	}
+	else if(e.data.query){
+		console.log(`Starting search for ${e.data.query}`)
+		// Add starting URL if necessary
+		if(
+			e.data.url && parsedUrls.indexOf(e.data.url) === -1 &&
+			urls.indexOf(e.data.url) === -1
+		){
+			hostname = getHostname(e.data.url)
+			urls.push(e.data.url)
+		}
+
+		queryStr = e.data.query
+
+		// Check for existing batch
+		if(batches[e.data.batch]){
+			searchBatch(queryStr, batches[e.data.batch])
+		}
+		// If batch doesn't exist
+		else if(urls.length){
+			createBatch(e.data.batch)
+				.then(() => {
+					searchBatch(queryStr, batches[e.data.batch])
+				})
+				.catch(console.error)
+		}
+		// If there's nothing left
+		else{
+			self.postMessage({
+				query: queryStr,
+				results: false
+			})
+		}
 	}
 
-	queryStr = e.data.query
-
-	// Check for existing batch
-	if(batches[e.data.batch]){
-		searchBatch(queryStr, batches[e.data.batch])
-	}
-	// If batch doesn't exist
-	else if(urls.length){
-		createBatch(e.data.batch)
-			.then(() => searchBatch(queryStr, batches[e.data.batch]))
-			.catch(console.error)
-	}
-	// If there's nothing left
-	else{
-		self.postMessage({
-			query: queryStr,
-			results: false
-		})
-	}
 
 
 }, false)
@@ -64,7 +80,7 @@ function fetchPage(url){
 		var req = new XMLHttpRequest()
 		req.addEventListener('load', function(){
 			resolve({
-				url: url,
+				id: url,
 				data: this.responseText
 			})
 		})
@@ -96,6 +112,7 @@ function fetchPages(batchNum){
 
 function parsePages(arr){
 	return new Promise((resolve, reject) => {
+		console.log('Parsing pages...')
 		const promises = []
 		for(let i = arr.length; i--;){
 			promises.push(parsePage(arr[i]))
@@ -105,42 +122,45 @@ function parsePages(arr){
 			.catch(reject)
 	})
 }
+
 function parsePage(obj){
-	obj.links = []
-	obj = obj.data.replace(regTag, '> ')
-	const doc = new DOMParser().parseFromString(obj.data, 'text/html')
-	const main = doc.querySelector('body')
-	const links = doc.querySelectorAll('a')
-	const title = doc.querySelector('title')
-	const description = doc.querySelector('meta[name="description"]')
-	for(let i = 0; i < links.length; i++){
-		let href = links[i].href
-		if(getHostname(href) === hostname && urls.indexOf(href) === -1 && parsedUrls.indexOf(href) === -1 && obj.links.indexOf(href) === -1){
-			obj.links.push(href)
-		}
-	}
-	if(title){
-		obj.title = title.textContent
-	}
-	if(main){
-		obj.content = main.textContent.replace(regSpace, ' ')
-	}
-	if(description){
-		obj.description = description.getAttribute('content')
-	}
-	delete obj.data
-	return obj
+	return new Promise((resolve, reject) => {
+		console.log('Parsing page...')
+		const thisId = threadReqId++
+		const interval = setInterval(() => {
+			if(threadReqs[thisId]){
+				clearInterval(interval)
+				const parsed = threadReqs[thisId]
+				parsed.id = obj.id
+				delete threadReqs[thisId]
+				resolve(parsed)
+			}
+		}, 10)
+		self.postMessage(JSON.stringify({
+			content: obj.data,
+			reqId: thisId
+		}))
+	})
 }
+const regTag = />/g
+const regSpace = /\s+/g
 
 function createIndex(arr){
+	console.log('Creating index...')
 	const index = lunr(function(){
 		this.field('title')
 		this.field('content')
 		this.field('description')
 		for(let i = 0; i < arr.length; i++){
+			displayContent[arr[i].id] = {
+				url: arr[i].id,
+				title: arr[i].title,
+				description: arr[i].description
+			}
 			this.add(arr[i])
 		}
 	})
+	console.log('Created lunr index.')
 	return {
 		pages: arr,
 		index: index
@@ -149,10 +169,13 @@ function createIndex(arr){
 
 function createBatch(batchNum){
 	return new Promise((resolve, reject) => {
+		console.log('Creating batch...')
 		fetchPages(batchNum)
 			.then(parsePages)
 			.then(createIndex)
 			.then(obj => {
+				console.log('Saving batch info...')
+
 				// Cache index as a batch
 				batches[batchNum] = obj.index
 
@@ -178,7 +201,12 @@ function createBatch(batchNum){
 
 function searchBatch(query, index){
 	if(query !== queryStr) return
-	const results = index.search(query)
+	console.log(`Searching batch for ${query}`)
+	const outcome = index.search(query)
+	const results = []
+	for(let i = 0; i < outcome.length; i++){
+		results[i] = displayContent[outcome[i].ref]
+	}
 	self.postMessage(JSON.stringify({
 		query: query,
 		results: results

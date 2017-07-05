@@ -28,7 +28,8 @@
     "style-loader": "^0.18.2",
     "svg-inline-loader": "^0.7.1",
     "webpack": "^3.0.0",
-    "webpack-dev-server": "^2.5.0"
+    "webpack-dev-server": "^2.5.0",
+    "xmljs": "^0.3.2"
   },
   "dependencies": {
     "lunr": "^2.1.0"
