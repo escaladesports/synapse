@@ -23,6 +23,7 @@ WIP
 - Save Lunr indexes in worker memory
 
 ## Todo
+- Fetch more than 1 page
 - Fetch pages all at once
 - Display meta descriptions
 - Message if no results

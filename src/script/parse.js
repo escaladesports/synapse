@@ -9,8 +9,9 @@ module.exports = function(data){
 	const title = doc.querySelector('title')
 	const description = doc.querySelector('meta[name="description"]')
 	for(let i = 0; i < links.length; i++){
-		let href = links[i].href
-		if(href){
+		const href = links[i].href
+		const str = links[i].getAttribute('href')
+		if(href && str !== '#'){
 			obj.links.push(href)
 		}
 	}

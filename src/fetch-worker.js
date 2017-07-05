@@ -24,6 +24,7 @@ const batches = []
 const displayContent = {}
 const threadReqs = {}
 let threadReqId = 0
+let replaceDomain
 let hostname
 let queryStr
 
@@ -43,6 +44,9 @@ self.addEventListener('message', e => {
 			e.data.url && parsedUrls.indexOf(e.data.url) === -1 &&
 			urls.indexOf(e.data.url) === -1
 		){
+			if('replaceDomain' in e.data){
+				replaceDomain = e.data.replaceDomain
+			}
 			hostname = getHostname(e.data.url)
 			urls.push(e.data.url)
 		}
@@ -77,6 +81,7 @@ self.addEventListener('message', e => {
 
 function fetchPage(url){
 	return new Promise((resolve, reject) => {
+		console.log(`Fetching: ${url}`)
 		var req = new XMLHttpRequest()
 		req.addEventListener('load', function(){
 			resolve({
@@ -90,8 +95,9 @@ function fetchPage(url){
 	})
 }
 
-function fetchPages(batchNum){
+function fetchPages(urls, batchNum){
 	return new Promise((resolve, reject) => {
+		console.log('Fetching pages...')
 		// Get URLs to fetch
 		const fetches = []
 		for(let i = 0; i < urls.length; i++){
@@ -135,7 +141,7 @@ function parsePage(obj){
 				delete threadReqs[thisId]
 				resolve(parsed)
 			}
-		}, 10)
+		}, 1)
 		self.postMessage(JSON.stringify({
 			content: obj.data,
 			reqId: thisId
@@ -145,7 +151,7 @@ function parsePage(obj){
 const regTag = />/g
 const regSpace = /\s+/g
 
-function createIndex(arr){
+function createIndex(batchNum, arr){
 	console.log('Creating index...')
 	const index = lunr(function(){
 		this.field('title')
@@ -160,41 +166,90 @@ function createIndex(arr){
 			this.add(arr[i])
 		}
 	})
-	console.log('Created lunr index.')
-	return {
-		pages: arr,
-		index: index
+
+	console.log('Saving batch info...')
+
+	// Cache index as a batch
+	batches[batchNum] = index
+
+	// Save new URLs and move old ones
+	for(let i in arr){
+		const page = arr[i]
+		let index = urls.indexOf(page.url)
+		if(index > -1){
+			urls.splice(index, 1)
+		}
+		parsedUrls.push(page.url)
+		for(let i in page.links){
+			if(
+				urls.indexOf(page.links[i]) === -1 &&
+				parsedUrls.indexOf(page.links[i])
+			){
+				urls.push(page.links[i])
+			}
+		}
 	}
+
+
+
 }
 
-function createBatch(batchNum){
+function createBatch(batchNum, curUrls, returnPages){
 	return new Promise((resolve, reject) => {
-		console.log('Creating batch...')
-		fetchPages(batchNum)
+		if(!curUrls){
+			console.log('Creating batch...')
+			curUrls = []
+			for(let i = 0; i < urls.length; i++){
+				curUrls.push(urls[i])
+			}
+			returnPages = []
+		}
+		fetchPages(curUrls, batchNum)
 			.then(parsePages)
-			.then(createIndex)
-			.then(obj => {
-				console.log('Saving batch info...')
+			// Add new URLs, recurse?
+			.then(arr => {
+				// Add results
+				for(let i = 0; i < arr.length; i++){
+					returnPages.push(arr[i])
+				}
 
-				// Cache index as a batch
-				batches[batchNum] = obj.index
-
-				// Save new URLs and move old ones
-				for(let i in obj.pages){
-					const page = obj.pages[i]
-					let index = urls.indexOf(page.url)
+				// Add new pages
+				for(let i in arr){
+					const page = arr[i]
+					let index = curUrls.indexOf(page.url)
 					if(index > -1){
-						urls.splice(index, 1)
+						curUrls.splice(index, 1)
 					}
 					parsedUrls.push(page.url)
 					for(let i in page.links){
-						if(urls.indexOf(page.links[i]) === -1 && parsedUrls.indexOf(page.links[i])){
-							urls.push(page.links[i])
+						if(replaceDomain){
+							let link = page.links[i]
+							link = link.split('//')[1].split('/')
+							link.shift()
+							link = link.join('/')
+							page.links[i] = `${replaceDomain}/${link}`
+						}
+						if(
+							curUrls.indexOf(page.links[i]) === -1 &&
+							parsedUrls.indexOf(page.links[i])
+						){
+							curUrls.push(page.links[i])
 						}
 					}
 				}
+
+				// If we've found enough
+				if(returnPages.length >= 10 || curUrls.length === 0){
+					createIndex(batchNum, returnPages)
+					resolve()
+				}
+				// If not, keep going
+				else{
+					createBatch(batchNum, curUrls, returnPages)
+						.then(resolve)
+						.catch(reject)
+				}
 			})
-			.then(resolve)
 			.catch(reject)
 	})
 }

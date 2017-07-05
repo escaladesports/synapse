@@ -15,9 +15,13 @@ module.exports = function(batch){
 			}
 		}
 	}
-	this.worker.postMessage({
+	const obj = {
 		query: this.queryStr,
 		url: this.url,
 		batch: this.pageProgress
-	})
+	}
+	if(this.replaceDomain){
+		obj.replaceDomain = this.replaceDomain
+	}
+	this.worker.postMessage(obj)
 }
