@@ -11,11 +11,9 @@
 // Output:
 {
 	queryStr: '',
-
+	results: []
 }
 
-// Parse up to limit or as manay as are available
-// Check periodically if query string is the same. If not, abandon
 */
 
 import lunr from 'lunr'
@@ -29,22 +27,32 @@ let queryStr
 self.addEventListener('message', e => {
 
 	// Add starting URL if necessary
-	if(e.data.url && parsedUrls.indexOf(e.data.url) === -1 && urls.indexOf(e.data.url) === -1){
+	if(
+		e.data.url && parsedUrls.indexOf(e.data.url) === -1 &&
+		urls.indexOf(e.data.url) === -1
+	){
 		hostname = getHostname(e.data.url)
 		urls.push(e.data.url)
 	}
 
-	queryStr = e.data.queryStr
+	queryStr = e.data.query
 
 	// Check for existing batch
 	if(batches[e.data.batch]){
 		searchBatch(queryStr, batches[e.data.batch])
 	}
 	// If batch doesn't exist
-	else{
+	else if(urls.length){
 		createBatch(e.data.batch)
 			.then(() => searchBatch(queryStr, batches[e.data.batch]))
 			.catch(console.error)
+	}
+	// If there's nothing left
+	else{
+		self.postMessage({
+			query: queryStr,
+			results: false
+		})
 	}
 
 
@@ -168,7 +176,11 @@ function createBatch(batchNum){
 	})
 }
 
-function searchBatch(queryStr, index){
-	const results = index.search(queryStr)
-	self.postMessage(JSON.stringify(results))
+function searchBatch(query, index){
+	if(query !== queryStr) return
+	const results = index.search(query)
+	self.postMessage(JSON.stringify({
+		query: query,
+		results: results
+	}))
 }
