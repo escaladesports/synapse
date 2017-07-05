@@ -41,7 +41,10 @@ module.exports = {
 					loader: 'babel-loader',
 					options: {
 						presets: [ 'es2015' ],
-						plugins: [ 'transform-remove-console' ]
+						plugins: [
+							'babel-plugin-es6-promise',
+							'transform-remove-console'
+						]
 					},
 				}]
 			},

@@ -35,17 +35,16 @@ module.exports = {
 		rules: [
 			{
 				test: /\.js$/,
-				//exclude: [/node_modules/],
 				use: [{
 					loader: 'babel-loader',
 					options: {
-						presets: ['es2015']
+						presets: [ 'es2015' ],
+						plugins: [ 'es6-promise' ]
 					}
 				}]
 			},
 			{
 				test: /\.css$/,
-				//exclude: [/node_modules/],
 				use: [
 					{
 						loader: 'style-loader'
@@ -61,7 +60,7 @@ module.exports = {
 			},
 			{
 				test: /\.pug$/,
-				exclude: [/node_modules/],
+				exclude: [ /node_modules/ ],
 				use: extractHtml.extract({
 					use: [
 						'html-loader',
