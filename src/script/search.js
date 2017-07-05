@@ -17,5 +17,5 @@ module.exports = function(str){
 		this.pages[0] = url
 		this.hostname = getHostname(url)
 	}
-	return this.fetchPage()
+	return this.query()
 }
