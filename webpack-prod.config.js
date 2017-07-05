@@ -36,7 +36,6 @@ module.exports = {
 		rules: [
 			{
 				test: /\.js$/,
-				//exclude: [/node_modules/],
 				use: [{
 					loader: 'babel-loader',
 					options: {
@@ -50,7 +49,7 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-				exclude: [/node_modules/],
+				exclude: [ /node_modules/ ],
 				use: extractStyles.extract({
 					use: [
 						{
@@ -63,7 +62,7 @@ module.exports = {
 			},
 			{
 				test: /\.pug$/,
-				exclude: [/node_modules/],
+				exclude: [ /node_modules/ ],
 				use: extractHtml.extract({
 					use: ['html-loader', 'pug-html-loader?pretty&exports=false']
 				})

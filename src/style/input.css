@@ -13,3 +13,8 @@
 		color: #fff;
 	}
 }
+.synapseNotSupported{
+	& .synapseInput{
+		visibility: hidden;
+	}
+}

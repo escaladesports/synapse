@@ -1,3 +1,4 @@
+import { add as addClass } from './script/class-list'
 function Synapse(el){
 	this.els = {
 		inputs: [],
@@ -31,4 +32,11 @@ Synapse.prototype = {
 	hideLoader: require('./script/hide-loader')
 }
 
-window.synapse = new Synapse()
+// Check for web worker support
+if(window.Worker && false){
+	window.synapse = new Synapse()
+}
+else{
+	window.synapse = {}
+	addClass(document.getElementsByTagName('body')[0], 'synapseNotSupported')
+}
