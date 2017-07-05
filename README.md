@@ -4,16 +4,29 @@ A client side search plugin with no dependencies.
 
 WIP
 
-## Todo
-- Lock in to only include origin domain
-- Minimum # of pages to crawl before starting to deliver results
-- Live search
-	+ Trigger a search after 1s of inaction in the input
-- Display meta descriptions
-- Trigger search in inputs on enter
-- Load in text immediately
+## Flow
+- Search is submit
+- If Lunr indexes already exist for URL batches, use those
+- If not, create batch
+- Search batch
+- Render results
 
-- Loading bar
+## Back end flow
+- Keep crawling pages until enough links are found
+- If enough links are found or we've parsed all we can, send to batch creator
+	+ Let the constructor know if there are no more links
+- Create a batch
+
+- Lunr web worker: creates batches or searches existing batches
+- Fetch page worker: fetches an array of pages and returns data and links
+- Merge into 1 worker?
+- Save Lunr indexes in worker memory
+
+## Todo
+- Fetch pages all at once
+- Display meta descriptions
+- Message if no results
+- Live search when idle for Xms
+
 - Search icon in input
 - Mobile close button placement?
-- Message if no results

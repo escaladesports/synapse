@@ -3,7 +3,7 @@ module.exports = function(){
 	const url = this.pages[this.pageProgress]
 	if(!url) return this
 	this.showLoader()
-	// If we've already got the data?
+	// If we've already got the data
 	if(this.pageData[url]){
 		this.progress()
 		return
