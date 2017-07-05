@@ -1,4 +1,5 @@
 module.exports = function(){
+	console.log('Paginating...')
 	this.pageProgress++
 	// If minimum depth is hit, render
 	if(this.pageProgress >= this.minDepth || this.pageProgress >= this.pages.length){

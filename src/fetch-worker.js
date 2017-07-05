@@ -53,6 +53,8 @@ self.addEventListener('message', e => {
 
 		queryStr = e.data.query
 
+		console.log(`Searching batch ${e.data.batch}`)
+
 		// Check for existing batch
 		if(batches[e.data.batch]){
 			searchBatch(queryStr, batches[e.data.batch])
@@ -175,11 +177,11 @@ function createIndex(batchNum, arr){
 	// Save new URLs and move old ones
 	for(let i in arr){
 		const page = arr[i]
-		let index = urls.indexOf(page.url)
+		let index = urls.indexOf(page.id)
 		if(index > -1){
 			urls.splice(index, 1)
 		}
-		parsedUrls.push(page.url)
+		parsedUrls.push(page.id)
 		for(let i in page.links){
 			if(
 				urls.indexOf(page.links[i]) === -1 &&
@@ -211,10 +213,8 @@ function createBatch(batchNum, curUrls, returnPages){
 				// Add results
 				for(let i = 0; i < arr.length; i++){
 					returnPages.push(arr[i])
-				}
 
-				// Add new pages
-				for(let i in arr){
+					// Add new pages
 					const page = arr[i]
 					let index = curUrls.indexOf(page.url)
 					if(index > -1){
@@ -237,6 +237,7 @@ function createBatch(batchNum, curUrls, returnPages){
 						}
 					}
 				}
+
 
 				// If we've found enough
 				if(returnPages.length >= 10 || curUrls.length === 0){

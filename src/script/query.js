@@ -1,5 +1,6 @@
 import parse from './parse'
 module.exports = function(batch){
+	this.showLoader()
 	if(!this.worker){
 		this.worker = new Worker('fetch-worker-v1.js')
 		this.worker.onmessage = e => {
