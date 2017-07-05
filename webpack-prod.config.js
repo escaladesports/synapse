@@ -21,6 +21,9 @@ module.exports = {
 			'./script.js',
 			'./style.css',
 			'./test.pug'
+		],
+		'query-worker': [
+			'./query-worker.js'
 		]
 	},
 	output: {
