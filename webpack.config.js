@@ -39,7 +39,10 @@ module.exports = {
 					loader: 'babel-loader',
 					options: {
 						presets: [ 'es2015' ],
-						plugins: [ 'es6-promise' ]
+						plugins: [
+							'babel-plugin-es6-promise',
+							'babel-plugin-remove-template-whitespace'
+						]
 					}
 				}]
 			},

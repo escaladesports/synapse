@@ -4,7 +4,7 @@ module.exports = function(){
 	console.log('Injecting template...')
 	const el = document.createElement('div')
 	el.classList = 'synapse'
-	el.innerHTML = `
+	const str = `
 		<div class="synapseClose">&#215;</div>
 		<div class="synapseModal">
 			<input class="synapseInput" type="text" />
@@ -20,7 +20,8 @@ module.exports = function(){
 				</div>
 			</div>
 		</div>
-	`
+	`;
+	el.innerHTML = str
 
 
 
