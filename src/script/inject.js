@@ -1,3 +1,4 @@
+import icon from '../img/search.svg'
 module.exports = function(){
 	if(this.injected === true) return this
 	console.log('Injecting template...')
@@ -7,6 +8,7 @@ module.exports = function(){
 		<div class="synapseClose">&#215;</div>
 		<div class="synapseModal">
 			<input class="synapseInput" type="text" />
+			${icon}
 			<ul class="synapseResults">
 			</ul>
 			<div class="loadMore">Load More</div>
