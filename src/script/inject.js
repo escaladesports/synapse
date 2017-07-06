@@ -11,7 +11,7 @@ module.exports = function(){
 			${icon}
 			<ul class="synapseResults">
 			</ul>
-			<div class="loadMore">Load More</div>
+			<div class="synapseLoadMore">Load More</div>
 			<div class="synapseLoader">
 				<div class="synapseLoadAnim">
 					<div></div>
@@ -41,7 +41,7 @@ module.exports = function(){
 	}, false)
 
 	// Load more
-	el.querySelector('.loadMore').addEventListener('click', e => {
+	el.querySelector('.synapseLoadMore').addEventListener('click', e => {
 		console.log('more...')
 		this.pageProgress++
 		this.query()

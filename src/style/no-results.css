@@ -1,0 +1,11 @@
+.synapseNoResults{
+	& .synapseLoadMore, & .synapseResults{
+		display: none;
+	}
+	&:after{
+		content: 'No results found.';
+		display: block;
+		text-align: center;
+		margin: 60px 0;
+	}
+}

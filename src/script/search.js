@@ -1,3 +1,4 @@
+import { remove as removeClass } from './class-list'
 import getHostname from './get-hostname'
 module.exports = function(str){
 	console.log('Searching ' + str)
@@ -5,6 +6,7 @@ module.exports = function(str){
 	if(this.queryStr === str) return this
 	this.clearSearch()
 	this.inject()
+	removeClass(this.els.container, 'synapseNoResults')
 	this.queryStr = str
 	if(this.els.innerInput){
 		this.els.innerInput.value = this.queryStr
