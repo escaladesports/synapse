@@ -5,8 +5,7 @@ A client side search plugin with no dependencies.
 WIP
 
 ## Todo
-- Live search when idle for X milliseconds
-
+- Multiple searches at the same time bugs
 - Ability to change which tag is searched (default: body)
 - matchMinimum as option
 - Batch limit option
