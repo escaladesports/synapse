@@ -13,18 +13,23 @@
 	margin: 60px auto;
 	width: 70px;
 	text-align: center;
+	white-space: nowrap;
 	& > div{
 		width: 18px;
 		height: 18px;
 		background-color: #fff;
 		border-radius: 100%;
 		display: inline-block;
+		margin-right: 7px;
 		animation: synapse-bouncedelay 1.4s infinite ease-in-out both;
 		&:nth-of-type(1){
 			animation-delay: -0.32s;
 		}
 		&:nth-of-type(2){
 			animation-delay: -0.16s;
+		}
+		&:last-of-type{
+			margin-right: 0;
 		}
 	}
 }
