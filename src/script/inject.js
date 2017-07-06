@@ -23,44 +23,15 @@ module.exports = function(){
 	`
 
 
-	// Close on click
-	el.addEventListener('click', e => {
-		switch(e.target.className){
-			case 'synapseClose':
-			case 'synapse':
-				this.close()
-				break
-		}
-	}, false)
-
-	// Close on escape key
-	el.addEventListener('keyup', e => {
-		if(e.keyCode === 27){
-			this.close()
-		}
-	}, false)
-
-	// Load more
-	el.querySelector('.synapseLoadMore').addEventListener('click', e => {
-		console.log('more...')
-		this.pageProgress++
-		this.query()
-	}, false)
 
 	this.els.container = el
 	this.els.results = el.querySelector('.synapseResults')
 	this.els.innerInput = el.querySelector('.synapseInput')
 
-	// Icon
-	el.querySelector('svg').addEventListener('click', () => {
-		this.search(this.els.innerInput.value)
-	}, false)
+	this.attachEvents()
 
-	this.els.innerInput.addEventListener('change', () => {
-		this.search(this.els.innerInput.value)
-	}, false)
-	const body = document.getElementsByTagName('body')[0]
-	if(body) body.appendChild(el)
+
+	this.els.body.appendChild(el)
 	this.injected = true
 
 	return this

@@ -9,7 +9,6 @@ function Synapse(el){
 	this.results = []
 	this.pageProgress = -1
 	this.activateInputs()
-	this.attachEvents()
 	return this
 }
 Synapse.prototype = {
@@ -19,7 +18,6 @@ Synapse.prototype = {
 	open: require('./script/open'),
 	close: require('./script/close'),
 	activateInputs: require('./script/activate-inputs'),
-	attachEvents: require('./script/attach-events'),
 	fetchPage: require('./script/fetch-page'),
 	progress: require('./script/progress'),
 	search: require('./script/search'),
@@ -27,6 +25,7 @@ Synapse.prototype = {
 	parse: require('./script/parse'),
 	query: require('./script/query'),
 	inject: require('./script/inject'),
+	attachEvents: require('./script/attach-events'),
 	render: require('./script/render'),
 	showLoader: require('./script/show-loader'),
 	hideLoader: require('./script/hide-loader')

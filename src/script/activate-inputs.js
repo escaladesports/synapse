@@ -4,5 +4,8 @@ module.exports = function(el = document){
 	for(let i = inputs.length; i--;){
 		addClass(inputs[i], 'synapseProcessed')
 		this.els.inputs.push(inputs[i])
+		inputs[i].addEventListener('change', () => {
+			this.search(inputs[i].value)
+		}, false)
 	}
 }
