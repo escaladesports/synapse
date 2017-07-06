@@ -1,5 +1,3 @@
-
-
 module.exports = function(){
 
 	// Close on click
@@ -20,17 +18,19 @@ module.exports = function(){
 	}, false)
 
 	// Load more
-	this.els.container.querySelector('.synapseLoadMore').addEventListener('click', e => {
-		console.log('more...')
-		this.pageProgress++
-		this.query()
-	}, false)
+	this.els.container.querySelector('.synapseLoadMore')
+		.addEventListener('click', e => {
+			console.log('more...')
+			this.pageProgress++
+			this.query()
+		}, false)
 
 
 	// Icon
-	this.els.container.querySelector('svg').addEventListener('click', () => {
-		this.search(this.els.innerInput.value)
-	}, false)
+	this.els.container.querySelector('svg')
+		.addEventListener('click', () => {
+			this.search(this.els.innerInput.value)
+		}, false)
 
 	// Input
 	let timeout
@@ -39,6 +39,7 @@ module.exports = function(){
 		this.search(this.els.innerInput.value)
 	}, false)
 
+	// Search on key up
 	this.els.innerInput.addEventListener('keyup', () => {
 		clearTimeout(timeout)
 		timeout = setTimeout(() => {

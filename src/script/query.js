@@ -6,6 +6,7 @@ module.exports = function(){
 		this.worker.onmessage = e => {
 			const data = JSON.parse(e.data)
 			if(data.query){
+				if(data.query !== this.queryStr) return
 				if('currentBatch' in data && data.currentBatch !== false){
 					this.pageProgress = data.currentBatch
 					console.log('Moved batch progress to ' + this.pageProgress)
