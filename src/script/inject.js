@@ -51,6 +51,11 @@ module.exports = function(){
 	this.els.results = el.querySelector('.synapseResults')
 	this.els.innerInput = el.querySelector('.synapseInput')
 
+	// Icon
+	el.querySelector('svg').addEventListener('click', () => {
+		this.search(this.els.innerInput.value)
+	}, false)
+
 	this.els.innerInput.addEventListener('change', () => {
 		this.search(this.els.innerInput.value)
 	}, false)
