@@ -6,14 +6,15 @@ WIP
 
 ## Todo
 - Search all existing batches and aggregate results
+	+ Tell client to advance batch number
 - Search 1 extra on first search for term
 - Minimum # of batches to search before giving up
 - Message if no results
 
-- Add weight to page titles
+- Search icon in input
 - Live search when idle for X milliseconds
-- Remove tabs and whitespace from templates in production
 - Ability to change which tag is searched (default: body)
 - matchMinimum as option
 - Batch limit option
-- Search icon in input
+- Add weight to page titles
+- Remove tabs and whitespace from templates in production

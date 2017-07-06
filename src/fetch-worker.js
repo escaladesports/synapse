@@ -8,7 +8,7 @@ const displayContent = {}
 const threadReqs = {}
 let threadReqId = 0
 let batchLimit = 6
-let matchMinimum = 0
+let matchMinimum = 0.002
 let replaceDomain
 let hostname
 let queryStr
@@ -39,9 +39,13 @@ self.addEventListener('message', e => {
 
 		console.log(`Searching batch ${e.data.batch}`)
 
-		// Check for existing batch
+		// If batch exists
 		if(batches[e.data.batch]){
-			searchBatch(queryStr, batches[e.data.batch])
+			createBatch(batches.length)
+				.then(() => {
+					searchAllBatches(queryStr)
+				})
+				.catch(console.error)
 		}
 		// If batch doesn't exist
 		else if(urls.length){
@@ -256,14 +260,37 @@ function searchBatch(query, index){
 	if(query !== queryStr) return
 	console.log(`Searching batch for ${query}`)
 	const outcome = index.search(query)
+	createOutcome(query, outcome)
+}
+
+function searchAllBatches(query){
+	if(query !== queryStr) return
+	console.log(`Searching all batches for ${query}`)
+	const outcome = []
+	for(let i = batches.length; i--;){
+		outcome.push(...batches[i].search(query))
+	}
+	outcome.sort((a, b) => {
+		if(a.score < b.score){
+			return 1
+		}
+		else if(a.score > b.score){
+			return -1
+		}
+		return 0
+	})
+	createOutcome(query, outcome, batches.length - 1)
+}
+
+function createOutcome(query, outcome, currentBatch){
 	const results = []
 	for(let i = 0; i < outcome.length; i++){
 		if(outcome[i].score < matchMinimum) continue
 		results[i] = displayContent[outcome[i].ref]
 	}
-	console.log(parsedUrls)
 	self.postMessage(JSON.stringify({
 		query: query,
-		results: results
+		results: results,
+		currentBatch: currentBatch || false
 	}))
 }
