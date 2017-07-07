@@ -4,6 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const extractStyles = new ExtractTextPlugin('[name]-v1.css')
 const extractHtml = new ExtractTextPlugin('test.html')
 const OpenBrowserPlugin = require('open-browser-webpack-plugin')
+const pkg = require('./package.json')
 
 module.exports = {
 	stats: {
@@ -17,7 +18,7 @@ module.exports = {
 	},
 	context: path.resolve(__dirname, './src'),
 	entry: {
-		synapse: [
+		[pkg.name]: [
 			'./script.js',
 			'./style.css',
 			'./test.pug'
