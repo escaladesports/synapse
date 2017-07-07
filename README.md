@@ -5,6 +5,8 @@ A client side search plugin with no dependencies.
 WIP
 
 ## Todo
+- Docs
+- Highlight searched term in results
 - Ability to change which tag is searched (default: body)
 - matchMinimum as option
 - Batch limit option
