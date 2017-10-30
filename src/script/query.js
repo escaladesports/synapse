@@ -1,33 +1,53 @@
 import parse from './parse'
+import fetch from 'isomorphic-fetch'
+
 module.exports = function(){
 	this.showLoader()
-	if(!this.worker){
-		this.worker = new Worker('fetch-worker-v1.js')
-		this.worker.onmessage = e => {
-			const data = JSON.parse(e.data)
-			if(data.query){
-				if(data.query !== this.queryStr) return
-				if('currentBatch' in data && data.currentBatch !== false){
-					this.pageProgress = data.currentBatch
-					console.log('Moved batch progress to ' + this.pageProgress)
+
+	getWorkerBlob()
+		.then(blob => {
+			if (!this.worker) {
+				this.worker = new Worker(blob)
+				this.worker.onmessage = e => {
+					const data = JSON.parse(e.data)
+					if (data.query) {
+						if (data.query !== this.queryStr) return
+						if ('currentBatch' in data && data.currentBatch !== false) {
+							this.pageProgress = data.currentBatch
+							console.log('Moved batch progress to ' + this.pageProgress)
+						}
+						this.render(data.results)
+					}
+					else {
+						console.log('Parsing DOM data...')
+						const obj = JSON.parse(e.data)
+						obj.content = parse(obj.content)
+						this.worker.postMessage(obj)
+					}
 				}
-				this.render(data.results)
 			}
-			else{
-				console.log('Parsing DOM data...')
-				const obj = JSON.parse(e.data)
-				obj.content = parse(obj.content)
-				this.worker.postMessage(obj)
+			const obj = {
+				query: this.queryStr,
+				url: this.url,
+				batch: this.pageProgress
 			}
-		}
-	}
-	const obj = {
-		query: this.queryStr,
-		url: this.url,
-		batch: this.pageProgress
-	}
-	if(this.replaceDomain){
-		obj.replaceDomain = this.replaceDomain
-	}
-	this.worker.postMessage(obj)
+			if (this.replaceDomain) {
+				obj.replaceDomain = this.replaceDomain
+			}
+			this.worker.postMessage(obj)
+		})
+
+}
+
+let workerBlob
+function getWorkerBlob(){
+	if(workerBlob) return workerBlob
+	return fetch('./fetch-worker-v1.js')
+		.then(res => res.text())
+		.then(res => {
+			res = new Blob([res])
+			res = window.URL.createObjectURL(res)
+			workerBlob = res
+			return res
+		})
 }
