@@ -18,7 +18,7 @@ Synapse.prototype = {
 	open: require('./script/open'),
 	close: require('./script/close'),
 	activateInputs: require('./script/activate-inputs'),
-	refresh: require('./script/refresh'),
+	refresh: require('./script/activate-inputs'),
 	fetchPage: require('./script/fetch-page'),
 	progress: require('./script/progress'),
 	search: require('./script/search'),
