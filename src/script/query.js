@@ -48,7 +48,7 @@ module.exports = function(){
 let workerBlob
 function getWorkerBlob(){
 	if (workerBlob) return Promise.resolve(workerBlob)
-	return fetch('https://synapse-search.netlify.com/synapse-v1.js')
+	return fetch('https://synapse-search.netlify.com/fetch-worker-v1.js')
 		.then(res => res.text())
 		.then(res => {
 			res = new Blob([res])
