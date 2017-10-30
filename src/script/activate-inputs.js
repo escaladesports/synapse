@@ -12,7 +12,7 @@ module.exports = function(el = document){
 
 	const toggle = el.querySelectorAll('.synapseToggle:not(.synapseProcessed)')
 	for(let i = toggle.length; i--;){
-		addClass(inputs[i], 'synapseProcessed')
+		addClass(toggle[i], 'synapseProcessed')
 		toggle[i].addEventListener('click', () => {
 			this.clearSearch()
 			this.inject()
