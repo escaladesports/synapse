@@ -47,7 +47,7 @@ module.exports = function(){
 
 let workerBlob
 function getWorkerBlob(){
-	if(workerBlob) return workerBlob
+	if (workerBlob) return Promise.resolve(workerBlob)
 	return fetch('./fetch-worker-v1.js')
 		.then(res => res.text())
 		.then(res => {
