@@ -35,5 +35,6 @@ module.exports = function(){
 	this.els.body.appendChild(el)
 	this.injected = true
 
+	console.log('Injected template.')
 	return this
 }
