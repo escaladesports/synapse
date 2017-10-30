@@ -23,7 +23,7 @@ module.exports = function(){
 							console.log('Parsing DOM data...')
 							const obj = JSON.parse(e.data)
 							obj.content = parse(obj.content)
-							this.worker.postMessage(obj)
+							this.worker.postMessage(this.origin || document.location.origin, obj)
 						}
 					}
 					catch(e){

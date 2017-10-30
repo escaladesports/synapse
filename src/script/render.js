@@ -1,6 +1,5 @@
 import { add as addClass } from './class-list'
 module.exports = function(list){
-	console.log(list)
 	if(this.preRender){
 		this.preRender(list)
 	}
