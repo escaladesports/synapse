@@ -11,6 +11,7 @@ module.exports = function(origin, data){
 	for(let i = 0; i < links.length; i++){
 		const href = links[i].href
 		const str = links[i].getAttribute('href')
+		console.log('Found link:', href)
 		if(
 			href &&
 			str !== '#' &&
@@ -28,6 +29,7 @@ module.exports = function(origin, data){
 	if(description){
 		obj.description = description.getAttribute('content')
 	}
+	console.log('Parsed object:', obj)
 	return obj
 }
 const regTag = />/g
