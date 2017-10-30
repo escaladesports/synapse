@@ -9,20 +9,26 @@ module.exports = function(){
 			if (!this.worker) {
 				this.worker = new Worker(blob)
 				this.worker.onmessage = e => {
-					const data = JSON.parse(e.data)
-					if (data.query) {
-						if (data.query !== this.queryStr) return
-						if ('currentBatch' in data && data.currentBatch !== false) {
-							this.pageProgress = data.currentBatch
-							console.log('Moved batch progress to ' + this.pageProgress)
+					try {
+						const data = JSON.parse(e.data)
+						if (data.query) {
+							if (data.query !== this.queryStr) return
+							if ('currentBatch' in data && data.currentBatch !== false) {
+								this.pageProgress = data.currentBatch
+								console.log('Moved batch progress to ' + this.pageProgress)
+							}
+							this.render(data.results)
 						}
-						this.render(data.results)
+						else {
+							console.log('Parsing DOM data...')
+							const obj = JSON.parse(e.data)
+							obj.content = parse(obj.content)
+							this.worker.postMessage(obj)
+						}
 					}
-					else {
-						console.log('Parsing DOM data...')
-						const obj = JSON.parse(e.data)
-						obj.content = parse(obj.content)
-						this.worker.postMessage(obj)
+					catch(e){
+						console.error(e)
+						console.log('Worker returned:', e.data)
 					}
 				}
 			}
