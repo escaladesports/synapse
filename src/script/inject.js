@@ -23,14 +23,12 @@ module.exports = function(){
 	`;
 	el.innerHTML = str
 
-
-
 	this.els.container = el
 	this.els.results = el.querySelector('.synapseResults')
 	this.els.innerInput = el.querySelector('.synapseInput')
 
+	console.log('Attaching events...')
 	this.attachEvents()
-
 
 	this.els.body.appendChild(el)
 	this.injected = true

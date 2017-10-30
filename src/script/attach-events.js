@@ -1,4 +1,5 @@
-module.exports = function(){
+module.exports = function () {
+	console.log('Attaching events...')
 
 	// Close on click
 	this.els.container.addEventListener('click', e => {
@@ -46,4 +47,6 @@ module.exports = function(){
 			this.search(this.els.innerInput.value)
 		}, 300)
 	}, false)
+
+	console.log('Attached events.')
 }
