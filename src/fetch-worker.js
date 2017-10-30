@@ -7,7 +7,7 @@ const batches = []
 const displayContent = {}
 const threadReqs = {}
 let threadReqId = 0
-let batchLimit = 6
+let batchLimit = 20
 let matchMinimum = 0.002
 let replaceDomain
 let hostname
