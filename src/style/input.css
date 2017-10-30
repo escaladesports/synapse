@@ -13,8 +13,14 @@
 		color: #fff;
 	}
 }
+.synapseToggle{
+	cursor: pointer;
+}
 .synapseNotSupported{
 	& .synapseInput{
+		visibility: hidden;
+	}
+	& .synapseToggle{
 		visibility: hidden;
 	}
 }
