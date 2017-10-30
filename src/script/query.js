@@ -22,8 +22,8 @@ module.exports = function(){
 						else {
 							console.log('Parsing DOM data...')
 							const obj = JSON.parse(e.data)
-							obj.content = parse(obj.content)
-							this.worker.postMessage(this.origin || document.location.origin, obj)
+							obj.content = parse(this.origin || document.location.origin, obj.content)
+							this.worker.postMessage(obj)
 						}
 					}
 					catch(e){
