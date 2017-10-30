@@ -44,7 +44,7 @@ module.exports = {
 						presets: [ 'es2015' ],
 						plugins: [
 							'babel-plugin-es6-promise',
-							'transform-remove-console',
+							//'transform-remove-console',
 							'babel-plugin-remove-template-whitespace'
 						]
 					},
