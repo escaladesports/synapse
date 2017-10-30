@@ -1,5 +1,9 @@
 import { add as addClass } from './class-list'
 module.exports = function(list){
+	console.log(list)
+	if(this.preRender){
+		this.preRender(list)
+	}
 	console.log('Rendering results...')
 	if(!list.length){
 		addClass(this.els.container, 'synapseNoResults')
