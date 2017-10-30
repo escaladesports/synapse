@@ -3,7 +3,7 @@ module.exports = function(){
 	if(this.injected === true) return this
 	console.log('Injecting template...')
 	const el = document.createElement('div')
-	el.classList = 'synapse'
+	el.className = 'synapse'
 	const str = `
 		<div class="synapseClose">&#215;</div>
 		<div class="synapseModal">
@@ -27,7 +27,6 @@ module.exports = function(){
 	this.els.results = el.querySelector('.synapseResults')
 	this.els.innerInput = el.querySelector('.synapseInput')
 
-	console.log('Attaching events...')
 	this.attachEvents()
 
 	this.els.body.appendChild(el)
