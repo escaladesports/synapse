@@ -2,8 +2,7 @@ import parse from './parse'
 module.exports = function(){
 	this.showLoader()
 	if(!this.worker){
-		//this.worker = new Worker('fetch-worker-v1.js')
-		this.worker = new Worker('https://synapse-search.netlify.com/fetch-worker-v1.js')
+		this.worker = new Worker('fetch-worker-v1.js')
 		this.worker.onmessage = e => {
 			const data = JSON.parse(e.data)
 			if(data.query){
