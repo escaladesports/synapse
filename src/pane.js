@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Subscribe } from 'statable'
 
+import Fetcher from './fetcher'
 import Input from './input'
 import termState from './states/term'
-import worker from 'workerize-loader!./worker'
+
+const fetcher = new Fetcher()
 
 function clearTerm(){
 	termState.setState({
@@ -21,6 +23,9 @@ class Pane extends Component{
 	constructor(props){
 		super(props)
 		this.termChange = this.termChange.bind(this)
+		if (this.props.origin) {
+			fetcher.options.origin = this.props.origin
+		}
 	}
 	componentDidMount(){
 		document.addEventListener('keyup', closeKey)
@@ -32,9 +37,7 @@ class Pane extends Component{
 	}
 	termChange(){
 		console.log('Term change')
-		worker()
-			.then(console.log)
-			.catch(console.error)
+		fetcher.fetchBatch()
 	}
 	render(){
 		return (

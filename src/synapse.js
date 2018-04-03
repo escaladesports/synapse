@@ -6,15 +6,12 @@ import Pane from './pane'
 import termState from './states/term'
 
 class Synapse extends Component{
-	constructor(props){
-		super(props)
-	}
 	render(){
 		return (
 			<div>
 				<Input />
 				<Subscribe to={termState}>
-					{({ term }) => term ? <Pane /> : null}
+					{({ term }) => term ? <Pane {...this.props} /> : null}
 				</Subscribe>
 			</div>
 		)

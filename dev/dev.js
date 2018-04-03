@@ -6,6 +6,6 @@ const containerEl = document.createElement('div')
 document.body.appendChild(containerEl)
 
 render(
-	<Synapse />,
+	<Synapse origin='http://www.espn.com/' />,
 	containerEl
 )
