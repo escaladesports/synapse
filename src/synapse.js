@@ -14,9 +14,7 @@ class Synapse extends Component{
 			<div>
 				<Input />
 				<Subscribe to={termState}>
-					{({ term }) => <div>
-						{term && <Pane />}
-					</div>}
+					{({ term }) => term ? <Pane /> : null}
 				</Subscribe>
 			</div>
 		)

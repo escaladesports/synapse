@@ -3,22 +3,43 @@ import { Subscribe } from 'statable'
 
 import Input from './input'
 import termState from './states/term'
+import worker from 'workerize-loader!./worker'
+
+function clearTerm(){
+	termState.setState({
+		term: ''
+	})
+}
+
+function closeKey(e){
+	if(e.keyCode === 27){
+		clearTerm()
+	}
+}
 
 class Pane extends Component{
 	constructor(props){
 		super(props)
-		this.onChange = this.onChange.bind(this)
+		this.termChange = this.termChange.bind(this)
 	}
-	onChange(e){
-		e.preventDefault()
-		termState.setState({
-			term: e.target.value
-		})
+	componentDidMount(){
+		document.addEventListener('keyup', closeKey)
+		termState.subscribe(this.termChange)
+	}
+	componentWillUnmount(){
+		document.removeEventListener('keyup', closeKey)
+		termState.unsubscribe(this.termChange)
+	}
+	termChange(){
+		console.log('Term change')
+		worker()
+			.then(console.log)
+			.catch(console.error)
 	}
 	render(){
 		return (
-			<div className='synapseBackground'>
-				<div className='synapseContent'>
+			<div className='synapseBackground' onClick={clearTerm}>
+				<div className='synapseContent' onClick={e => e.stopPropagation()}>
 					<Input className='synapseContentInput' focus />
 				</div>
 				{!this.props.noStyle &&

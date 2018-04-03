@@ -24,12 +24,14 @@
     "travis": "opn https://travis-ci.org/escaladesports/synapse/branches"
   },
   "devDependencies": {
-    "esca-scripts": "^0.14.4",
+    "esca-scripts": "^0.14.6",
     "opn-cli": "^3.1.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1"
   },
   "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "lunr": "^2.1.6",
     "statable": "^0.2.3"
   }
 }
