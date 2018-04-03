@@ -1,4 +1,4 @@
-function parsePage(text) {
+function parsePage(url, text) {
 	text = text.replace(regTag, '> ')
 	let doc = new DOMParser()
 		.parseFromString(text, 'text/html')
@@ -21,10 +21,9 @@ function parsePage(text) {
 		}
 		if (
 			this.fetchedUrls.indexOf(href) === -1 &&
-			this.urls.indexOf(href) === -1 &&
-			links.indexOf(href) === -1
+			this.urls.indexOf(href) === -1
 		) {
-			links.push(href)
+			this.urls.push(href)
 		}
 	}
 
@@ -53,7 +52,7 @@ function parsePage(text) {
 	}
 
 	return {
-		links,
+		url,
 		content,
 		title,
 		description,
