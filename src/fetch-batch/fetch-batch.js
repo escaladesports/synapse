@@ -1,15 +1,13 @@
 async function fetchBatch(){
-	let fetched = 0
 	let batch = []
-	while (fetched < this.options.batchLimit) {
+	while (batch.length < this.options.batchLimit) {
 		if (!this.options.urls.length) {
 			break
 		}
 		let promises = []
-		while(this.options.urls.length && fetched < this.options.batchLImit){
+		while(this.options.urls.length && (batch.length + promises.length) < this.options.batchLimit){
 			let url = this.options.urls.shift()
 			promises.push(this.fetchUrl(url))
-			fetched++
 		}
 		let data = await Promise.all(promises)
 		batch = [

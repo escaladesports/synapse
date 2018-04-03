@@ -1,5 +1,4 @@
-import fetch from 'isomorphic-fetch'
-
+import fetchUrl from './fetch-url'
 import fetchBatch from './fetch-batch'
 import parsePage from './parse-page'
 
@@ -39,6 +38,7 @@ class Fetcher{
 }
 
 Fetcher.prototype = {
+	fetchUrl,
 	fetchBatch,
 	parsePage,
 }
