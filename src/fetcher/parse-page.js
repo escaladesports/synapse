@@ -52,7 +52,7 @@ function parsePage(url, text) {
 	}
 
 	return {
-		url,
+		id: url,
 		content,
 		title,
 		description,

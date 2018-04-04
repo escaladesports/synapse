@@ -35,9 +35,10 @@ class Pane extends Component{
 		document.removeEventListener('keyup', closeKey)
 		termState.unsubscribe(this.termChange)
 	}
-	termChange(){
+	async termChange(){
 		console.log('Term change')
-		fetcher.fetchBatch()
+		await fetcher.fetchBatch()
+		await fetcher.searchBatches(termState.state.term)
 	}
 	render(){
 		return (

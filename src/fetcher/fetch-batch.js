@@ -29,7 +29,6 @@ async function fetchBatch(){
 		this.field('description')
 		for (let i = 0; i < batch.length; i++) {
 			displayContent[batch[i].url] = {
-				url: batch[i].url,
 				title: batch[i].title,
 				description: batch[i].description
 			}
@@ -37,10 +36,7 @@ async function fetchBatch(){
 		}
 	})
 
-	return {
-		displayContent,
-		index,
-	}
+	this.batches.push(index)
 }
 
 export default fetchBatch

@@ -1,6 +1,7 @@
 import fetchUrl from './fetch-url'
 import fetchBatch from './fetch-batch'
 import parsePage from './parse-page'
+import searchBatches from './search-batches'
 
 class Fetcher {
 	constructor(options) {
@@ -38,6 +39,7 @@ Fetcher.prototype = {
 	fetchUrl,
 	fetchBatch,
 	parsePage,
+	searchBatches,
 }
 
 
