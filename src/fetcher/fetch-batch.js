@@ -1,3 +1,5 @@
+import lunr from 'lunr'
+
 async function fetchBatch(){
 	let batch = []
 	if (!this.urls.length && !this.fetchedUrls.length){
@@ -18,8 +20,27 @@ async function fetchBatch(){
 			...data,
 		]
 	}
-	console.log(batch)
-	return batch
+
+	const displayContent = {}
+
+	const index = lunr(function(){
+		this.field('title')
+		this.field('content')
+		this.field('description')
+		for (let i = 0; i < batch.length; i++) {
+			displayContent[batch[i].url] = {
+				url: batch[i].url,
+				title: batch[i].title,
+				description: batch[i].description
+			}
+			this.add(batch[i])
+		}
+	})
+
+	return {
+		displayContent,
+		index,
+	}
 }
 
 export default fetchBatch

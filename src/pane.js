@@ -46,7 +46,7 @@ class Pane extends Component{
 					<Input className='synapseContentInput' focus />
 				</div>
 				{!this.props.noStyle &&
-					<style>{`
+					<style jsx global>{`
 						body{
 							height: auto !important;
 							overflow: hidden !important;

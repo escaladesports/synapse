@@ -16,15 +16,15 @@
   "license": "MIT",
   "scripts": {
     "analyze": "esca-scripts analyze --react --component --input ./src/index.js",
-    "build": "esca-scripts build --react --component --babel --input src --output dist --multiple",
-    "dev": "esca-scripts dev ---input './dev/dev.js, ./dev/index.html' --react --browser",
+    "build": "esca-scripts build --react --component --babel --input src --output dist --multiple --styledJsx",
+    "dev": "esca-scripts dev ---input './dev/dev.js, ./dev/index.html' --react --browser --styledJsx",
     "prepublishOnly": "npm run build",
     "reset": "esca-scripts reset",
     "test": "echo 'no test'",
     "travis": "opn https://travis-ci.org/escaladesports/synapse/branches"
   },
   "devDependencies": {
-    "esca-scripts": "^0.14.6",
+    "esca-scripts": "^0.14.7",
     "opn-cli": "^3.1.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1"
@@ -32,6 +32,7 @@
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
     "lunr": "^2.1.6",
-    "statable": "^0.2.3"
+    "statable": "^0.2.3",
+    "styled-jsx": "^2.2.6"
   }
 }
