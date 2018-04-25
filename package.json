@@ -30,6 +30,7 @@
     "react-dom": "^16.1.1"
   },
   "dependencies": {
+    "better-react-spinkit": "^2.0.4",
     "isomorphic-fetch": "^2.2.1",
     "lunr": "^2.1.6",
     "statable": "^0.2.3",

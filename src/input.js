@@ -10,6 +10,7 @@ class Input extends Component{
 	}
 	onChange(e){
 		e.preventDefault()
+		clearTimeout(this.timeout)
 		termState.setState({
 			term: e.target.value
 		})

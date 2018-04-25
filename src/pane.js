@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Subscribe } from 'statable'
-
+import { ThreeBounce } from 'better-react-spinkit'
 import Fetcher from './fetcher'
 import Input from './input'
 import termState from './states/term'
@@ -22,6 +22,9 @@ function closeKey(e){
 class Pane extends Component{
 	constructor(props){
 		super(props)
+		this.state = {
+			results: false,
+		}
 		this.termChange = this.termChange.bind(this)
 		if (this.props.origin) {
 			fetcher.options.origin = this.props.origin
@@ -35,16 +38,26 @@ class Pane extends Component{
 		document.removeEventListener('keyup', closeKey)
 		termState.unsubscribe(this.termChange)
 	}
-	async termChange(){
-		console.log('Term change')
-		await fetcher.fetchBatch()
-		await fetcher.searchBatches(termState.state.term)
+	termChange(){
+		clearTimeout(this.timeout)
+		this.timeout = setTimeout(async () => {
+			console.log('Term change')
+			await fetcher.fetchBatch()
+			let results = await fetcher.searchBatches(termState.state.term)
+			console.log(results)
+			this.setState({ results })
+		}, 500)
 	}
 	render(){
 		return (
 			<div className='synapseBackground' onClick={clearTerm}>
 				<div className='synapseContent' onClick={e => e.stopPropagation()}>
 					<Input className='synapseContentInput' focus />
+					{true &&
+						<div className='synapseLoading'>
+							<ThreeBounce size={20} color='#fff' />
+						</div>
+					}
 				</div>
 				{!this.props.noStyle &&
 					<style jsx global>{`
@@ -86,6 +99,11 @@ class Pane extends Component{
 							outline: 0;
 							border: 0;
 							border-bottom: 1px solid #fff;
+						}
+
+						.synapseLoading{
+							margin: 50px 0;
+							text-align: center;
 						}
 					`}</style>
 				}

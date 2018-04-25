@@ -15,6 +15,8 @@ async function fetchBatch(){
 			promises.push(this.fetchUrl(url))
 		}
 		let data = await Promise.all(promises)
+		// Remove falsy items
+		data = data.filter(item => !!item)
 		batch = [
 			...batch,
 			...data,
