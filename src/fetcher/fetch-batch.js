@@ -1,4 +1,5 @@
 import lunr from 'lunr'
+//import lunr from 'elasticlunr'
 
 async function fetchBatch(term){
 	let batch = []

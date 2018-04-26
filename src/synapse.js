@@ -19,7 +19,7 @@ class Synapse extends Component{
 }
 
 Synapse.defaultProps = {
-	batchSize: 5,
+	batchSize: 6,
 	batchSearch: 3,
 	matchThreshold: .007,
 	resultsThreshold: 5,

@@ -30,7 +30,6 @@ class Pane extends Component{
 		if (props.origin) {
 			fetcher.options.origin = props.origin
 		}
-		console.log(props.matchThreshold)
 		fetcher.options.batchSize = props.batchSize
 		fetcher.options.matchThreshold = props.matchThreshold
 	}

@@ -5,7 +5,6 @@ async function searchBatches(term){
 		results.push(...batchResults)
 	})
 	// Remove low scores
-	console.log(this.options.matchThreshold)
 	results = results.filter(result => {
 		return result.score >= this.options.matchThreshold
 	})
