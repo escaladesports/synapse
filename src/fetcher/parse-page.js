@@ -24,6 +24,7 @@ function parsePage(url, text) {
 			this.urls.indexOf(href) === -1
 		) {
 			this.urls.push(href)
+			this.urlText[href] = linkEls[i].textContent
 		}
 	}
 
@@ -53,7 +54,6 @@ function parsePage(url, text) {
 
 	return {
 		id: url,
-		url,
 		content,
 		title,
 		description,

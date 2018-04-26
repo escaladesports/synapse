@@ -4,6 +4,7 @@ import lunr from 'lunr'
 async function fetchBatch(term){
 	let batch = []
 	const urls = this.urls
+	const urlText = this.urlText
 
 	// Add origin if first time running
 	if (!urls.length && !this.fetchedUrls.length){
@@ -13,9 +14,11 @@ async function fetchBatch(term){
 	// Prioritize URLs
 	const urlIndex = lunr(function(){
 		this.field('id')
+		this.field('urlText')
 		for (let i = urls.length; i--;){
 			this.add({
-				id: urls[i]
+				id: urls[i],
+				urlText: urlText[urls[i]]
 			})
 		}
 	})
@@ -46,13 +49,13 @@ async function fetchBatch(term){
 	const displayContent = this.display
 
 	const index = lunr(function(){
-		this.field('url')
+		this.field('id')
 		this.field('title')
 		this.field('content')
 		this.field('description')
 		for (let i = 0; i < batch.length; i++) {
-			displayContent[batch[i].url] = {
-				url: batch[i].url,
+			displayContent[batch[i].id] = {
+				url: batch[i].id,
 				title: batch[i].title,
 				description: batch[i].description
 			}

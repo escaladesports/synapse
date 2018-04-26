@@ -18,6 +18,7 @@ class Fetcher {
 		this.display = {}
 		this.urls = []
 		this.fetchedUrls = []
+		this.urlText = {}
 		this.subscriptions = []
 	}
 	subscribe(fn) {
