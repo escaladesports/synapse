@@ -3,6 +3,7 @@ import { Subscribe } from 'statable'
 import { ThreeBounce } from 'better-react-spinkit'
 import Fetcher from './fetcher'
 import Input from './input'
+import Results from './results'
 import termState from './states/term'
 
 const fetcher = new Fetcher()
@@ -53,7 +54,8 @@ class Pane extends Component{
 			<div className='synapseBackground' onClick={clearTerm}>
 				<div className='synapseContent' onClick={e => e.stopPropagation()}>
 					<Input className='synapseContentInput' focus />
-					{true &&
+					{this.state.results ?
+						<Results results={this.state.results} {...this.props} /> :
 						<div className='synapseLoading'>
 							<ThreeBounce size={20} color='#fff' />
 						</div>

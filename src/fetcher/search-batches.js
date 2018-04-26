@@ -1,5 +1,5 @@
 async function searchBatches(term){
-	const results = []
+	let results = []
 	this.batches.forEach(batch => {
 		let batchResults = batch.search(term)
 		results.push(...batchResults)
@@ -12,6 +12,10 @@ async function searchBatches(term){
 			return -1
 		}
 		return 0
+	})
+	console.log(this.display)
+	results = results.map(result => {
+		return this.display[result.ref]
 	})
 	return results
 }

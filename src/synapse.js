@@ -18,4 +18,10 @@ class Synapse extends Component{
 	}
 }
 
+Synapse.defaultProps = {
+	matchThreshold: .005,
+	resultsThreshold: 5,
+	createLink: (href, contents) => <a href={href}>{contents}</a>
+}
+
 export default Synapse

@@ -15,6 +15,7 @@ class Fetcher {
 			...options
 		}
 		this.batches = []
+		this.display = {}
 		this.urls = []
 		this.fetchedUrls = []
 		this.subscriptions = []

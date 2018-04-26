@@ -23,14 +23,15 @@ async function fetchBatch(){
 		]
 	}
 
-	const displayContent = {}
+	const displayContent = this.display
 
 	const index = lunr(function(){
 		this.field('title')
 		this.field('content')
 		this.field('description')
 		for (let i = 0; i < batch.length; i++) {
-			displayContent[batch[i].url] = {
+			displayContent[batch[i].id] = {
+				url: batch[i].id,
 				title: batch[i].title,
 				description: batch[i].description
 			}
