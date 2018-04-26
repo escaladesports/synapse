@@ -7,6 +7,11 @@ const containerEl = document.createElement('div')
 document.body.appendChild(containerEl)
 
 render(
-	<Synapse origin='http://www.espn.com/' />,
+	<Synapse
+		batchSize={20}
+		matchThreshold={.005}
+		resultsThreshold={5}
+		timeThreshold={6}
+		origin='http://www.espn.com/' />,
 	containerEl
 )

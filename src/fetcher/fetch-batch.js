@@ -5,12 +5,13 @@ async function fetchBatch(){
 	if (!this.urls.length && !this.fetchedUrls.length){
 		this.urls.push(this.options.origin)
 	}
-	while (batch.length < this.options.batchLimit) {
+	console.log(this.options.batchSize)
+	while (batch.length < this.options.batchSize) {
 		if (!this.urls.length) {
 			break
 		}
 		let promises = []
-		while(this.urls.length && (batch.length + promises.length) < this.options.batchLimit){
+		while (this.urls.length && (batch.length + promises.length) < this.options.batchSize){
 			let url = this.urls.shift()
 			promises.push(this.fetchUrl(url))
 		}

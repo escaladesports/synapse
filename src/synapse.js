@@ -19,6 +19,7 @@ class Synapse extends Component{
 }
 
 Synapse.defaultProps = {
+	batchSize: 10,
 	matchThreshold: .005,
 	resultsThreshold: 5,
 	createLink: (href, contents) => <a href={href}>{contents}</a>

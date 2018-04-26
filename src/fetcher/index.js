@@ -7,8 +7,8 @@ class Fetcher {
 	constructor(options) {
 		this.options = {
 			origin: document.location.origin,
-			batchLimit: 20,
-			matchMinimum: .002,
+			batchSize: 20,
+			matchThreshold: .002,
 			content: 'body',
 			title: 'title',
 			description: 'meta[name="description"]',

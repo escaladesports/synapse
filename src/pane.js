@@ -30,6 +30,8 @@ class Pane extends Component{
 		if (this.props.origin) {
 			fetcher.options.origin = this.props.origin
 		}
+		fetcher.options.batchSize = this.props.batchSize
+		fetcher.options.matchThreshold = this.props.matchThreshold
 	}
 	componentDidMount(){
 		document.addEventListener('keyup', closeKey)
@@ -42,6 +44,7 @@ class Pane extends Component{
 	termChange(){
 		clearTimeout(this.timeout)
 		this.timeout = setTimeout(async () => {
+			if (!termState.state.term) return
 			console.log('Term change')
 			await fetcher.fetchBatch()
 			let results = await fetcher.searchBatches(termState.state.term)

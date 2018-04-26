@@ -4,8 +4,8 @@ class Results extends React.Component{
 	render(){
 		return (
 			<ul className='synapseResults'>
-				{this.props.results.map(result =>
-					<li className='synapseResult'>
+				{this.props.results.map((result, key) =>
+					<li className='synapseResult' key={`synapseResult${key}`}>
 						{this.props.createLink(result.url, (
 							<span>
 								<span className='synapseTitle'>{result.title}</span>
