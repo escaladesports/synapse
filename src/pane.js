@@ -122,7 +122,6 @@ Pane.defaultProps = {
 	batchSize: 6,
 	batchSearch: 3,
 	matchThreshold: .007,
-	resultsThreshold: 5,
 	noResults: 'No Results Found',
 	createLink: (href, contents) => <a href={href}>{contents}</a>
 }

@@ -1,18 +1,48 @@
-# React Component Boilerplate
+# Synapse
 
-A simple React boilerplate that outputs to ES5 and ES6.
+Back end-less, config-less client side search.
 
-## Getting started
+## Without React
 
-```bash
-git clone git@github.com:escaladesports/react-component-boilerplate.git --depth=1 your-component
-cd your-component
-rm -rf .git
+```html
+<a class='synapseToggle'>Show Search</a>
+<input data-synapse-input />
+<script src='https://synapse-v2.netlify.com'></script>
 ```
 
-Also make sure to edit the `package.json` file with a new name, version number, author, and anything else you might need.
+## With React
 
-## Usage
+### Installation
 
-- `yarn dev`: Runs a local dev server from the `dev` directory
-- `yarn analyze`: View bundle sizes
+With npm:
+
+```bash
+npm install --save synapse-search
+```
+
+Or with Yarn:
+
+```bash
+yarn add synapse-search
+```
+
+### Usage
+
+```jsx
+import { Synapse } from 'synapse-search'
+
+...
+
+<Synapse />
+```
+
+### Options
+
+Prop | Description | Default
+--- | --- | ---
+placeholder | Placeholder attribute in input elements | `"Search..."`
+noResults | A custom "no results" message/component | `"No Results Found"`
+createLink | A function that creates custom links for each result | `(href, contents) => <a href={href}>{contents}</a>`
+matchThreshold | Do not show result if match is under this threshold | `.007`
+batchSize | The number of pages to fetch per batch | `6`
+batchSearch | The number of batches to create per search | `3`
