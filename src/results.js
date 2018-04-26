@@ -4,16 +4,19 @@ class Results extends React.Component{
 	render(){
 		return (
 			<ul className='synapseResults'>
-				{this.props.results.map((result, key) =>
-					<li className='synapseResult' key={`synapseResult${key}`}>
-						{this.props.createLink(result.url, (
-							<span>
-								<span className='synapseTitle'>{result.title}</span>
-								<span className='synapseDescription'>{result.description}</span>
-							</span>
-						))}
-					</li>
-				)}
+				{this.props.results.length ?
+					this.props.results.map((result, key) =>
+						<li className='synapseResult' key={`synapseResult${key}`}>
+							{this.props.createLink(result.url, (
+								<span>
+									<span className='synapseTitle'>{result.title}</span>
+									<span className='synapseDescription'>{result.description}</span>
+								</span>
+							))}
+						</li>
+					) :
+					<div className='synapseResultsEmpty'>No Results Found</div>
+				}
 				<style jsx global>{`
 					.synapseResults{
 						margin: 50px 0;
@@ -30,6 +33,11 @@ class Results extends React.Component{
 					}
 					.synapseTitle{
 						font-weight: bold;
+					}
+					.synapseResultsEmpty{
+						text-align: center;
+						font-size: 1.5em;
+						text-transform: uppercase;
 					}
 				`}</style>
 			</ul>
