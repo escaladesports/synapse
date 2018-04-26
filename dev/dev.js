@@ -8,8 +8,6 @@ document.body.appendChild(containerEl)
 
 render(
 	<Synapse
-		batchSize={20}
-		matchThreshold={.005}
 		resultsThreshold={5}
 		timeThreshold={6}
 		origin='http://www.espn.com/' />,

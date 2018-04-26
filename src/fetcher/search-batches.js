@@ -4,10 +4,9 @@ async function searchBatches(term){
 		let batchResults = batch.search(term)
 		results.push(...batchResults)
 	})
-	console.log(results)
 	// Remove low scores
+	console.log(this.options.matchThreshold)
 	results = results.filter(result => {
-		console.log(result.score)
 		return result.score >= this.options.matchThreshold
 	})
 	// Sort by score
@@ -20,6 +19,7 @@ async function searchBatches(term){
 		}
 		return 0
 	})
+	console.log(results)
 	// Show display results
 	results = results.map(result => {
 		return this.display[result.ref]

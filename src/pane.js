@@ -27,11 +27,12 @@ class Pane extends Component{
 			results: false,
 		}
 		this.termChange = this.termChange.bind(this)
-		if (this.props.origin) {
-			fetcher.options.origin = this.props.origin
+		if (props.origin) {
+			fetcher.options.origin = props.origin
 		}
-		fetcher.options.batchSize = this.props.batchSize
-		fetcher.options.matchThreshold = this.props.matchThreshold
+		console.log(props.matchThreshold)
+		fetcher.options.batchSize = props.batchSize
+		fetcher.options.matchThreshold = props.matchThreshold
 	}
 	componentDidMount(){
 		document.addEventListener('keyup', closeKey)
@@ -45,10 +46,10 @@ class Pane extends Component{
 		clearTimeout(this.timeout)
 		this.timeout = setTimeout(async () => {
 			if (!termState.state.term) return
-			console.log('Term change')
-			await fetcher.fetchBatch()
+			for (let i = 0; i < this.props.batchSearch; i++) {
+				await fetcher.fetchBatch(termState.state.term)
+			}
 			let results = await fetcher.searchBatches(termState.state.term)
-			console.log(results)
 			this.setState({ results })
 		}, 500)
 	}

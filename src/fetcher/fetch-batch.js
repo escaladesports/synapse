@@ -1,18 +1,36 @@
 import lunr from 'lunr'
 
-async function fetchBatch(){
+async function fetchBatch(term){
 	let batch = []
-	if (!this.urls.length && !this.fetchedUrls.length){
-		this.urls.push(this.options.origin)
+	const urls = this.urls
+
+	// Add origin if first time running
+	if (!urls.length && !this.fetchedUrls.length){
+		urls.push(this.options.origin)
 	}
-	console.log(this.options.batchSize)
-	while (batch.length < this.options.batchSize) {
-		if (!this.urls.length) {
-			break
+
+	// Prioritize URLs
+	const urlIndex = lunr(function(){
+		this.field('id')
+		for (let i = urls.length; i--;){
+			this.add({
+				id: urls[i]
+			})
 		}
+	})
+	const urlResult = urlIndex.search(term)
+	urlResult.forEach(res => {
+		let url = res.ref
+		urls.splice(urls.indexOf(url), 1)
+		urls.unshift(url)
+	})
+
+	// Search URLs
+	while (batch.length < this.options.batchSize) {
+		if (!urls.length) break
 		let promises = []
-		while (this.urls.length && (batch.length + promises.length) < this.options.batchSize){
-			let url = this.urls.shift()
+		while (urls.length && (batch.length + promises.length) < this.options.batchSize){
+			let url = urls.shift()
 			promises.push(this.fetchUrl(url))
 		}
 		let data = await Promise.all(promises)
@@ -27,12 +45,13 @@ async function fetchBatch(){
 	const displayContent = this.display
 
 	const index = lunr(function(){
+		this.field('url')
 		this.field('title')
 		this.field('content')
 		this.field('description')
 		for (let i = 0; i < batch.length; i++) {
-			displayContent[batch[i].id] = {
-				url: batch[i].id,
+			displayContent[batch[i].url] = {
+				url: batch[i].url,
 				title: batch[i].title,
 				description: batch[i].description
 			}
