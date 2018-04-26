@@ -30,6 +30,7 @@ class Pane extends Component{
 		if (props.origin) {
 			fetcher.options.origin = props.origin
 		}
+		fetcher.options.contentSelector = props.contentSelector
 		fetcher.options.batchSize = props.batchSize
 		fetcher.options.matchThreshold = props.matchThreshold
 	}
@@ -123,6 +124,7 @@ Pane.defaultProps = {
 	batchSearch: 3,
 	matchThreshold: .007,
 	noResults: 'No Results Found',
+	contentSelector: 'body',
 	createLink: (href, contents) => <a href={href}>{contents}</a>
 }
 

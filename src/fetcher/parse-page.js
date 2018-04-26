@@ -40,7 +40,7 @@ function parsePage(url, text) {
 		description = descriptionEl.getAttribute('content') || descriptionEl.textContent
 	}
 
-	let contentEl = doc.querySelector(this.options.content)
+	let contentEl = doc.querySelector(this.options.contentSelector)
 	let content = ''
 	if (contentEl) {
 		// Remove unwanted tags

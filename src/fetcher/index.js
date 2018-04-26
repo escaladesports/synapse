@@ -9,7 +9,7 @@ class Fetcher {
 			origin: document.location.origin,
 			batchSize: 20,
 			matchThreshold: .002,
-			content: 'body',
+			contentSelector: 'body',
 			title: 'title',
 			description: 'meta[name="description"]',
 			...options
