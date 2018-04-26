@@ -8,6 +8,7 @@ document.body.appendChild(containerEl)
 
 render(
 	<Synapse
+		createLink={(href, contents) => <span>{contents}</span>}
 		origin='http://www.espn.com/' />,
 	containerEl
 )

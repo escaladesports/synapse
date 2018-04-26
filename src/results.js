@@ -1,4 +1,9 @@
 import React from 'react'
+import termState from './states/term'
+
+function close(){
+	termState.setState({ term: '' })
+}
 
 class Results extends React.Component{
 	render(){
@@ -6,7 +11,11 @@ class Results extends React.Component{
 			<ul className='synapseResults'>
 				{this.props.results.length ?
 					this.props.results.map((result, key) =>
-						<li className='synapseResult' key={`synapseResult${key}`}>
+						<li
+							className='synapseResult'
+							key={`synapseResult${key}`}
+							onClick={close}
+							>
 							{this.props.createLink(result.url, (
 								<span>
 									<span className='synapseTitle'>{result.title}</span>

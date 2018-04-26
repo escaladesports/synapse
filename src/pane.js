@@ -119,6 +119,11 @@ class Pane extends Component{
 
 Pane.defaultProps = {
 	placeholder: 'Search...',
+	batchSize: 6,
+	batchSearch: 3,
+	matchThreshold: .007,
+	resultsThreshold: 5,
+	createLink: (href, contents) => <a href={href}>{contents}</a>
 }
 
 export default Pane

@@ -23,7 +23,7 @@ async function searchBatches(term){
 	results = results.map(result => {
 		return this.display[result.ref]
 	})
-	return []
+	//return []
 	return results
 }
 
