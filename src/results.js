@@ -24,7 +24,7 @@ class Results extends React.Component{
 							))}
 						</li>
 					) :
-					<div className='synapseResultsEmpty'>No Results Found</div>
+					<div className='synapseResultsEmpty'>{this.props.noResults}</div>
 				}
 				<style jsx global>{`
 					.synapseResults{
