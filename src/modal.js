@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import { Subscribe } from 'statable'
 import { ThreeBounce } from 'better-react-spinkit'
-import Fetcher from './fetcher'
 import Input from './input'
-import Results from './results'
+import Results from './results-list'
 import termState from './states/term'
-
-const fetcher = new Fetcher()
 
 function clearTerm(){
 	termState.setState({
@@ -27,12 +24,6 @@ class Pane extends Component{
 			results: false,
 		}
 		this.termChange = this.termChange.bind(this)
-		if (props.origin) {
-			fetcher.options.origin = props.origin
-		}
-		fetcher.options.contentSelector = props.contentSelector
-		fetcher.options.batchSize = props.batchSize
-		fetcher.options.matchThreshold = props.matchThreshold
 	}
 	componentDidMount(){
 		document.addEventListener('keyup', closeKey)
@@ -107,10 +98,6 @@ class Pane extends Component{
 							border-bottom: 1px solid #fff;
 						}
 
-						.synapseLoading{
-							margin: 50px 0;
-							text-align: center;
-						}
 					`}</style>
 				}
 			</div>

@@ -1,5 +1,9 @@
-import SearchInput from './input'
+import SynapseInput from './input'
+import SynapseResults from './results'
+import SynapseConfig from './fetcher/set-config'
 
 export {
-	SearchInput,
+	SynapseInput,
+	SynapseResults,
+	SynapseConfig,
 }

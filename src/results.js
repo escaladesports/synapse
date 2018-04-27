@@ -1,5 +1,7 @@
 import React from 'react'
+import { Subscribe } from 'statable'
 import termState from './states/term'
+import { ThreeBounce } from 'better-react-spinkit'
 
 function close(){
 	termState.setState({ term: '' })
@@ -8,24 +10,43 @@ function close(){
 class Results extends React.Component{
 	render(){
 		return (
-			<ul className='synapseResults'>
-				{this.props.results.length ?
-					this.props.results.map((result, key) =>
-						<li
-							className='synapseResult'
-							key={`synapseResult${key}`}
-							onClick={close}
-							>
-							{this.props.createLink(result.url, (
-								<span>
-									<span className='synapseTitle'>{result.title}</span>
-									<span className='synapseDescription'>{result.description}</span>
-								</span>
-							))}
-						</li>
-					) :
-					<div className='synapseResultsEmpty'>{this.props.noResults}</div>
-				}
+			<div>
+				<Subscribe to={termState}>{({ results, loading }) => (
+					<div>
+						{/* Loading */}
+						{loading &&
+							<div className='synapseLoading'>
+								{ this.props.loading }
+							</div>
+						}
+
+						{/* Results */}
+						{results && results.length &&
+							<ul className='synapseResults'>
+								{results.map((result, key) =>
+									<li
+										className='synapseResult'
+										key={`synapseResult${key}`}
+										onClick={close}
+									>
+										{this.props.createLink(result.url, (
+											<span>
+												<span className='synapseTitle'>{result.title}</span>
+												<span className='synapseDescription'>{result.description}</span>
+											</span>
+										))}
+									</li>
+								)}
+							</ul>
+						}
+
+						{/* No results */}
+						{results && !results.length &&
+							this.props.noResults
+						}
+
+					</div>
+				)}</Subscribe>
 				<style jsx global>{`
 					.synapseResults{
 						margin: 50px 0;
@@ -38,7 +59,6 @@ class Results extends React.Component{
 					.synapseTitle,
 					.synapseDescription{
 						display: block;
-						color: #fff;
 					}
 					.synapseTitle{
 						font-weight: bold;
@@ -48,10 +68,21 @@ class Results extends React.Component{
 						font-size: 1.5em;
 						text-transform: uppercase;
 					}
+
+					.synapseLoading{
+						margin: 50px 0;
+						text-align: center;
+					}
 				`}</style>
-			</ul>
+			</div>
 		)
 	}
+}
+
+Results.defaultProps = {
+	loading: <ThreeBounce size={20} color='#000' />,
+	noResults: 'No Results Found',
+	createLink: (href, contents) => <a href={href}>{contents}</a>,
 }
 
 export default Results

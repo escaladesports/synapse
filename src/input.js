@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Subscribe } from 'statable'
-
 import termState from './states/term'
 
 class Input extends Component{
@@ -11,10 +10,9 @@ class Input extends Component{
 	onChange(e){
 		e.preventDefault()
 		clearTimeout(this.timeout)
-		termState.setState({
-			term: e.target.value
-		})
+		termState.changeTerm(e.target.value)
 	}
+	/*
 	componentDidMount(){
 		if (this.props.focus) {
 			let term = termState.state.term
@@ -27,6 +25,7 @@ class Input extends Component{
 			}
 		}
 	}
+	*/
 	render(){
 		return (
 			<div>
