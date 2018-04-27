@@ -13,12 +13,6 @@ class Results extends React.Component{
 			<div>
 				<Subscribe to={termState}>{({ results, loading }) => (
 					<div>
-						{/* Loading */}
-						{loading &&
-							<div className='synapseLoading'>
-								{ this.props.loading }
-							</div>
-						}
 
 						{/* Results */}
 						{results && results.length &&
@@ -38,6 +32,18 @@ class Results extends React.Component{
 									</li>
 								)}
 							</ul>
+						}
+
+						{/* Loading */}
+						{loading &&
+							<div className='synapseLoading'>
+								{this.props.loading}
+							</div>
+						}
+
+						{/* Load More */}
+						{results && results.length && !loading &&
+							<button onClick={termState.nextPage}>Load More</button>
 						}
 
 						{/* No results */}

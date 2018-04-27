@@ -18,9 +18,7 @@ export default new State({
 		clearTimeout(timeout)
 		timeout = setTimeout(async () => {
 			if (!this.state.term) return
-			this.setState({
-				loading: true,
-			})
+			this.setState({ loading: true })
 			for (let i = 0; i < fetcher.options.batchSearch; i++) {
 				await fetcher.fetchBatch(this.state.term)
 			}
@@ -30,5 +28,21 @@ export default new State({
 				loading: false,
 			})
 		}, 500)
+	},
+	async nextPage() {
+		this.setState({ loading: true })
+
+		for (let i = 0; i < fetcher.options.batchSearch; i++) {
+			await fetcher.fetchBatch(this.state.term)
+		}
+
+		let results = [
+			...this.state.results,
+			...await fetcher.searchMoreBatches(this.state.term)
+		]
+		this.setState({
+			results,
+			loading: false,
+		})
 	}
 })
