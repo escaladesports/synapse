@@ -11,11 +11,11 @@ class Results extends React.Component{
 	render(){
 		return (
 			<div>
-				<Subscribe to={termState}>{({ results, loading }) => (
+				<Subscribe to={termState}>{({ results, loading, end }) => (
 					<div>
 
 						{/* Results */}
-						{results && results.length &&
+						{results && results.length > 0 &&
 							<ul className='synapseResults'>
 								{results.map((result, key) =>
 									<li
@@ -42,7 +42,7 @@ class Results extends React.Component{
 						}
 
 						{/* Load More */}
-						{results && results.length && !loading &&
+						{results && results.length > 0 && !loading && !end &&
 							<button onClick={termState.nextPage}>Load More</button>
 						}
 

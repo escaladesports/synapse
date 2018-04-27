@@ -7,6 +7,7 @@ export default new State({
 	term: '',
 	results: false,
 	loading: false,
+	end: false,
 }, {
 	changeTerm(term, delayed){
 		if(term === this.state.term) return
@@ -25,7 +26,10 @@ export default new State({
 	},
 	async startFetch() {
 		if (!this.state.term) return
-		this.setState({ loading: true })
+		this.setState({
+			loading: true,
+			end: false,
+		})
 		for (let i = 0; i < fetcher.options.batchSearch; i++) {
 			await fetcher.fetchBatch(this.state.term)
 		}
@@ -41,14 +45,16 @@ export default new State({
 		for (let i = 0; i < fetcher.options.batchSearch; i++) {
 			await fetcher.fetchBatch(this.state.term)
 		}
+		let pageResults = await fetcher.searchMoreBatches(this.state.term)
 
 		let results = [
 			...this.state.results,
-			...await fetcher.searchMoreBatches(this.state.term)
+			...pageResults,
 		]
 		this.setState({
 			results,
 			loading: false,
+			end: pageResults.length === 0
 		})
 	}
 })
