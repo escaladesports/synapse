@@ -2,37 +2,34 @@ import React, { Component } from 'react'
 import { Subscribe } from 'statable'
 import termState from './states/term'
 
+function onChange(e) {
+	e.preventDefault()
+	termState.changeTerm(e.target.value, true)
+}
+function onEnter(e) {
+	if (e.keyCode === 13) {
+		e.preventDefault()
+		termState.changeTerm(e.target.value)
+	}
+}
+
 class Input extends Component{
 	constructor(props){
 		super(props)
-		this.onChange = this.onChange.bind(this)
 	}
-	onChange(e){
-		e.preventDefault()
-		clearTimeout(this.timeout)
-		termState.changeTerm(e.target.value)
-	}
-	/*
 	componentDidMount(){
-		if (this.props.focus) {
-			let term = termState.state.term
-			termState.setState({ term: ' ' })
-			this.input.focus()
-			if (term) {
-				setTimeout(() => {
-					termState.setState({ term })
-				}, 0)
-			}
-		}
+		this.input.addEventListener('keyup', onEnter)
 	}
-	*/
+	componentWillUnmount(){
+		this.input.removeEventListener('keyup', onEnter)
+	}
 	render(){
 		return (
 			<div>
 				<Subscribe to={termState}>
 					{({ term }) => (
 						<input
-							onChange={this.onChange}
+							onChange={onChange}
 							ref={input => this.input = input}
 							value={term}
 							className={this.props.className}

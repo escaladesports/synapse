@@ -8,7 +8,7 @@ export default new State({
 	results: false,
 	loading: false,
 }, {
-	changeTerm(term){
+	changeTerm(term, delayed){
 		if(term === this.state.term) return
 		this.setState({ term })
 		term = term.trim()
@@ -16,18 +16,24 @@ export default new State({
 
 		// Wait for end of user input
 		clearTimeout(timeout)
-		timeout = setTimeout(async () => {
-			if (!this.state.term) return
-			this.setState({ loading: true })
-			for (let i = 0; i < fetcher.options.batchSearch; i++) {
-				await fetcher.fetchBatch(this.state.term)
-			}
-			let results = await fetcher.searchBatches(this.state.term)
-			this.setState({
-				results,
-				loading: false,
-			})
-		}, 500)
+		if (delayed) {
+			timeout = setTimeout(this.startFetch, 500)
+		}
+		else{
+			this.startFetch()
+		}
+	},
+	async startFetch() {
+		if (!this.state.term) return
+		this.setState({ loading: true })
+		for (let i = 0; i < fetcher.options.batchSearch; i++) {
+			await fetcher.fetchBatch(this.state.term)
+		}
+		let results = await fetcher.searchBatches(this.state.term)
+		this.setState({
+			results,
+			loading: false,
+		})
 	},
 	async nextPage() {
 		this.setState({ loading: true })
