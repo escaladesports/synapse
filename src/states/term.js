@@ -30,6 +30,7 @@ export default new State({
 		id++
 		let curId = id
 		this.setState({
+			results: [],
 			loading: true,
 			end: false,
 		})

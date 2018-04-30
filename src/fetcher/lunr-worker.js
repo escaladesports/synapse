@@ -3,12 +3,18 @@ import lunr from 'lunr'
 let batches = []
 let urlText = {}
 
-function searchBatches(term, matchThreshold) {
+function searchBatches(term, matchThreshold, batchSearch) {
 	let results = []
-	batches.forEach(batch => {
-		let batchResults = batch.search(term)
+
+	let start = 0
+	if(batchSearch){
+		start = batches.length - batchSearch
+	}
+	for (let i = start; i < batches.length; i++) {
+		let batchResults = batches[i].search(term)
 		results.push(...batchResults)
-	})
+	}
+
 
 	// Remove low scores
 	results = results.filter(result => {

@@ -47,7 +47,7 @@ class Results extends React.Component{
 						}
 
 						{/* No results */}
-						{results && !results.length &&
+						{results && !results.length && !loading &&
 							this.props.noResults
 						}
 

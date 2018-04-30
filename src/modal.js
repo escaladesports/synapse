@@ -1,60 +1,37 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Subscribe } from 'statable'
 import { ThreeBounce } from 'better-react-spinkit'
 import Input from './input'
-import Results from './results-list'
+import Results from './results'
 import termState from './states/term'
 
-function clearTerm(){
-	termState.setState({
-		term: ''
-	})
-}
-
-function closeKey(e){
-	if(e.keyCode === 27){
-		clearTerm()
-	}
-}
-
-class Pane extends Component{
+class Modal extends React.Component{
 	constructor(props){
 		super(props)
-		this.state = {
-			results: false,
+		this.state = { open: false }
+		this.closeModal = this.closeModal.bind(this)
+		this.onTermChange = this.onTermChange.bind(this)
+	}
+	closeModal(){
+		this.setState({ open: false })
+	}
+	onTermChange({ term }){
+		if(!this.state.open && term && this.lastTerm !== term){
+			this.setState({ open: true })
 		}
-		this.termChange = this.termChange.bind(this)
 	}
 	componentDidMount(){
-		document.addEventListener('keyup', closeKey)
-		termState.subscribe(this.termChange)
+		termState.subscribe(this.onTermChange)
 	}
 	componentWillUnmount(){
-		document.removeEventListener('keyup', closeKey)
-		termState.unsubscribe(this.termChange)
-	}
-	termChange(){
-		clearTimeout(this.timeout)
-		this.timeout = setTimeout(async () => {
-			if (!termState.state.term) return
-			for (let i = 0; i < this.props.batchSearch; i++) {
-				await fetcher.fetchBatch(termState.state.term)
-			}
-			let results = await fetcher.searchBatches(termState.state.term)
-			this.setState({ results })
-		}, 500)
+		termState.unsubscribe(this.onTermChange)
 	}
 	render(){
-		return (
-			<div className='synapseBackground' onClick={clearTerm}>
+		return this.state.open ?
+			<div className='synapseModal' onClick={this.closeModal}>
 				<div className='synapseContent' onClick={e => e.stopPropagation()}>
-					<Input className='synapseContentInput' focus />
-					{this.state.results ?
-						<Results results={this.state.results} {...this.props} /> :
-						<div className='synapseLoading'>
-							<ThreeBounce size={20} color='#fff' />
-						</div>
-					}
+					<Input className='synapseContentInput' focus {...this.props} />
+					<Results {...this.props} />
 				</div>
 				{!this.props.noStyle &&
 					<style jsx global>{`
@@ -62,7 +39,7 @@ class Pane extends Component{
 							height: auto !important;
 							overflow: hidden !important;
 						}
-						.synapseBackground{
+						.synapseModal{
 							position: fixed;
 							top: 0;
 							right: 0;
@@ -78,10 +55,22 @@ class Pane extends Component{
 							letter-spacing: 1px;
 							-webkit-tap-highlight-color: rgba(0,0,0,0);
 							box-sizing: border-box;
+							a,
+							button{
+								color: #fff;
+							}
+							a{
+								text-decoration: none;
+							}
+							button{
+								background-color: transparent;
+								border: 1px solid #fff;
+								border-radius: none;
+							}
 						}
-						.synapseBackground *,
-						.synapseBackground *:after,
-						.synapseBackground *:before{
+						.synapseModal *,
+						.synapseModal *:after,
+						.synapseModal *:before{
 							box-sizing: inherit;
 						}
 
@@ -101,18 +90,12 @@ class Pane extends Component{
 					`}</style>
 				}
 			</div>
-		)
+		: null
 	}
 }
 
-Pane.defaultProps = {
-	placeholder: 'Search...',
-	batchSize: 6,
-	batchSearch: 3,
-	matchThreshold: .007,
-	noResults: 'No Results Found',
-	contentSelector: 'body',
-	createLink: (href, contents) => <a href={href}>{contents}</a>
+Modal.defaultProps = {
+	loading: <ThreeBounce size={20} color='#fff' />,
 }
 
-export default Pane
+export default Modal

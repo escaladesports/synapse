@@ -21,13 +21,6 @@ class Page extends React.Component{
 			<main>
 				<SynapseInput />
 				<SynapseResults />
-				<SynapseInput />
-				<style jsx>{`
-					main :global(a){
-						text-decoration: none;
-						color: #000;
-					}
-				`}</style>
 			</main>
 		)
 	}
