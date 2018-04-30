@@ -30,8 +30,6 @@ function searchBatches(term, matchThreshold) {
 }
 
 function prioritizeUrls(urls, term){
-	console.log('URL in:', urls)
-	console.log('URL term:', term)
 	const urlIndex = lunr(function(){
 		this.field('id')
 		this.field('urlText')
@@ -40,12 +38,20 @@ function prioritizeUrls(urls, term){
 		}
 	})
 	const res = urlIndex.search(term)
-	console.log('URL results:', res)
 	return res
 }
 
-function createBatch(arr){
-
+function createBatch(batch){
+	const index = lunr(function () {
+		this.field('id')
+		this.field('title')
+		this.field('content')
+		this.field('description')
+		for (let i = 0; i < batch.length; i++) {
+			this.add(batch[i])
+		}
+	})
+	batches.push(index)
 }
 
 const fns = {

@@ -13,18 +13,29 @@ worker.addEventListener('message', e => {
 })
 
 function prioritizeUrls(){
+	return callWorker('prioritizeUrls', [ ...arguments ])
+}
+function createBatch(){
+	return callWorker('createBatch', [ ...arguments ])
+}
+function searchBatches(){
+	return callWorker('searchBatches', [ ...arguments ])
+}
+
+function callWorker(fn, args){
 	return new Promise((resolve, reject) => {
 		id++
 		callbacks[id] = resolve
 		worker.postMessage(JSON.stringify({
 			id,
-			fn: 'prioritizeUrls',
-			args: [ ...arguments ],
+			fn: fn,
+			args: args,
 		}))
 	})
-
 }
 
 export {
-	prioritizeUrls
+	prioritizeUrls,
+	createBatch,
+	searchBatches,
 }

@@ -1,24 +1,8 @@
-async function searchBatches(term){
-	let results = []
-	this.batches.forEach(batch => {
-		let batchResults = batch.search(term)
-		results.push(...batchResults)
-	})
-	// Remove low scores
-	results = results.filter(result => {
-		return result.score >= this.options.matchThreshold
-	})
-	// Sort by score
-	results.sort((a, b) => {
-		if(a.score < b.score){
-			return 1
-		}
-		if(a.score > b.score){
-			return -1
-		}
-		return 0
-	})
-	console.log(results)
+import { searchBatches } from './lunr'
+
+async function asyncSearchBatches(term){
+	let results = await searchBatches(term, this.options.matchThreshold)
+
 	// Show display results
 	results = results.map(result => {
 		return this.display[result.ref]
@@ -27,4 +11,4 @@ async function searchBatches(term){
 	return results
 }
 
-export default searchBatches
+export default asyncSearchBatches

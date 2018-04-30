@@ -1,5 +1,5 @@
 import lunr from 'lunr'
-import { prioritizeUrls } from './lunr'
+import { prioritizeUrls, createBatch } from './lunr'
 
 async function fetchBatch(term){
 	let batch = []
@@ -12,28 +12,12 @@ async function fetchBatch(term){
 	}
 
 	// Prioritize URLs
-	/*
-	const urlIndex = lunr(function(){
-		this.field('id')
-		this.field('urlText')
-		for (let i = urls.length; i--;){
-			this.add({
-				id: urls[i],
-				urlText: urlText[urls[i]]
-			})
-		}
-	})
-	const urlResult = urlIndex.search(term)
-	*/
-
 	const urlResult = await prioritizeUrls(urls.map((id, key) => {
 		return {
 			id,
 			urlText: urlText[id],
 		}
 	}), term)
-	console.log(urlResult)
-
 	urlResult.forEach(res => {
 		let url = res.ref
 		urls.splice(urls.indexOf(url), 1)
@@ -57,24 +41,16 @@ async function fetchBatch(term){
 		]
 	}
 
-	const displayContent = this.display
 
-	const index = lunr(function(){
-		this.field('id')
-		this.field('title')
-		this.field('content')
-		this.field('description')
-		for (let i = 0; i < batch.length; i++) {
-			displayContent[batch[i].id] = {
-				url: batch[i].id,
-				title: batch[i].title,
-				description: batch[i].description
-			}
-			this.add(batch[i])
+	for (let i = 0; i < batch.length; i++) {
+		this.display[batch[i].id] = {
+			url: batch[i].id,
+			title: batch[i].title,
+			description: batch[i].description
 		}
-	})
+	}
 
-	this.batches.push(index)
+	await createBatch(batch)
 }
 
 export default fetchBatch
