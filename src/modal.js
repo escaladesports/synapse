@@ -30,7 +30,7 @@ class Modal extends React.Component{
 		return this.state.open ?
 			<div className='synapseModal' onClick={this.closeModal}>
 				<div className='synapseContent' onClick={e => e.stopPropagation()}>
-					<Input className='synapseContentInput' focus {...this.props} />
+					<Input focus {...this.props} />
 					<Results {...this.props} />
 				</div>
 				{!this.props.noStyle &&
@@ -56,7 +56,8 @@ class Modal extends React.Component{
 							-webkit-tap-highlight-color: rgba(0,0,0,0);
 							box-sizing: border-box;
 							a,
-							button{
+							button,
+							input{
 								color: #fff;
 							}
 							a{
@@ -66,6 +67,17 @@ class Modal extends React.Component{
 								background-color: transparent;
 								border: 1px solid #fff;
 								border-radius: none;
+								padding: 10px 20px;
+								outline: 0;
+								text-transform: uppercase;
+							}
+							input{
+								background: transparent;
+								outline: 0;
+								border: 0;
+								border-bottom: 1px solid #fff;
+								font-size: 1.2em;
+								padding: 5px;
 							}
 						}
 						.synapseModal *,
@@ -77,14 +89,6 @@ class Modal extends React.Component{
 						.synapseContent{
 							max-width: 900px;
 							margin: 0 auto;
-						}
-
-						.synapseContentInput{
-							background: transparent;
-							color: #fff;
-							outline: 0;
-							border: 0;
-							border-bottom: 1px solid #fff;
 						}
 
 					`}</style>

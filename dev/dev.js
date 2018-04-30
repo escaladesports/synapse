@@ -15,12 +15,14 @@ SynapseConfig({
 const containerEl = document.createElement('div')
 document.body.appendChild(containerEl)
 
+document.body.style.height = '300vh'
+
 class Page extends React.Component{
 	render(){
 		return(
 			<main>
 				<SynapseInput />
-				<SynapseResults />
+				<SynapseModal />
 			</main>
 		)
 	}
