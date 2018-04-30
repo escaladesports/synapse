@@ -1,5 +1,5 @@
 import lunr from 'lunr'
-//import lunr from 'elasticlunr'
+import { prioritizeUrls } from './lunr'
 
 async function fetchBatch(term){
 	let batch = []
@@ -12,6 +12,7 @@ async function fetchBatch(term){
 	}
 
 	// Prioritize URLs
+	/*
 	const urlIndex = lunr(function(){
 		this.field('id')
 		this.field('urlText')
@@ -23,6 +24,16 @@ async function fetchBatch(term){
 		}
 	})
 	const urlResult = urlIndex.search(term)
+	*/
+
+	const urlResult = await prioritizeUrls(urls.map((id, key) => {
+		return {
+			id,
+			urlText: urlText[id],
+		}
+	}), term)
+	console.log(urlResult)
+
 	urlResult.forEach(res => {
 		let url = res.ref
 		urls.splice(urls.indexOf(url), 1)
