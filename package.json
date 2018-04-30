@@ -1,5 +1,5 @@
 {
-  "name": "synapse",
+  "name": "synapse-search",
   "version": "1.0.3",
   "keywords": [
     "synapse",
@@ -18,7 +18,7 @@
 	 "analyze": "esca-scripts analyze --react --component --input ./src/index.js",
 	 "build": "run-p build:main build:browser",
     "build:main": "esca-scripts build --react --component --babel --input src --output dist --multiple --styledJsx",
-    "build:browser": "esca-scripts build --react --component --input ./src/index.js --output dist-browser --multiple --styledJsx --minify",
+    "build:browser": "esca-scripts build --react --component --input ./src/index.js --output dist-browser --multiple --styledJsx --minify --component --name SynapseInject",
     "dev": "esca-scripts dev ---input './dev/dev.js, ./dev/index.html' --react --browser --styledJsx",
     "prepublishOnly": "npm run build",
     "reset": "esca-scripts reset",
