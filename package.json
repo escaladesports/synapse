@@ -15,9 +15,9 @@
   },
   "license": "MIT",
   "scripts": {
-    "analyze": "esca-scripts analyze --react --component --input ./src/index.js",
-    "build": "npm-p build:node build:browser",
-    "build:node": "esca-scripts build --react --component --babel --input src --output dist --multiple --styledJsx",
+	 "analyze": "esca-scripts analyze --react --component --input ./src/index.js",
+	 "build": "run-p build:main build:browser",
+    "build:main": "esca-scripts build --react --component --babel --input src --output dist --multiple --styledJsx",
     "build:browser": "esca-scripts build --react --component --input ./src/index.js --output dist-browser --multiple --styledJsx --minify",
     "dev": "esca-scripts dev ---input './dev/dev.js, ./dev/index.html' --react --browser --styledJsx",
     "prepublishOnly": "npm run build",
@@ -27,7 +27,6 @@
   },
   "devDependencies": {
     "esca-scripts": "^0.14.7",
-    "npm-run-all": "^4.1.2",
     "opn-cli": "^3.1.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
@@ -37,6 +36,7 @@
     "better-react-spinkit": "^2.0.4",
     "isomorphic-fetch": "^2.2.1",
     "lunr": "^2.1.6",
+    "npm-run-all": "^4.1.2",
     "statable": "^0.2.3",
     "styled-jsx": "^2.2.6"
   }

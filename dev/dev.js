@@ -5,8 +5,15 @@ import {
 	SynapseModal,
 	SynapseResults,
 	SynapseConfig,
+	SynapseInject,
 } from '../src'
 
+
+new SynapseInject({
+	origin: 'http://www.espn.com/'
+})
+
+/*
 SynapseConfig({
 	createLink: (href, contents) => < span > { contents }</span >,
 	origin: 'http://www.espn.com/'
@@ -32,3 +39,4 @@ render(
 	<Page />,
 	containerEl
 )
+*/
