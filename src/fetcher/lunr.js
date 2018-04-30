@@ -1,4 +1,4 @@
-import Worker from 'worker-loader!./lunr-worker.js'
+import Worker from 'worker-loader?inline!./lunr-worker.js'
 
 let worker = new Worker()
 let id = 0

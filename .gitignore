@@ -16,9 +16,7 @@ dist
 json
 static
 docs/build/
-dist-es6/
-dist-es5/
-dist-modules/
+dist-*
 coverage/
 .eslintcache
 .postcssrc
