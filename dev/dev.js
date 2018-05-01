@@ -9,7 +9,7 @@ import {
 } from '../src'
 
 
-new SynapseInject({
+let synapse = new SynapseInject({
 	origin: 'http://www.espn.com/'
 })
 
