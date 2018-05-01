@@ -10,10 +10,16 @@ class Modal extends React.Component{
 		super(props)
 		this.state = { open: false }
 		this.closeModal = this.closeModal.bind(this)
+		this.escapeKey = this.escapeKey.bind(this)
 		this.onTermChange = this.onTermChange.bind(this)
 	}
 	closeModal(){
 		this.setState({ open: false })
+	}
+	escapeKey(e){
+		if(e.keyCode === 27){
+			this.closeModal()
+		}
 	}
 	onTermChange({ term }) {
 		console.log('Term change', term)
@@ -25,9 +31,11 @@ class Modal extends React.Component{
 	}
 	componentDidMount(){
 		termState.subscribe(this.onTermChange)
+		document.addEventListener('keyup', this.escapeKey)
 	}
 	componentWillUnmount(){
 		termState.unsubscribe(this.onTermChange)
+		document.removeEventListener('keyup', this.escapeKey)
 	}
 	render(){
 		return this.state.open ?
