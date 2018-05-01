@@ -4,25 +4,23 @@ Back end-less, config-less client side search. Uses React, but also works withou
 
 ## Without React
 
-Create an element with a class of `synapseInput` that Synapse will automatically bind to anywhere in between your `<body></body>` tags:
+Create an element with a data attribute of `data-synapse-input` that Synapse will automatically inject the input tag into as well as a `data-synapse-results` element for the results.
 
 ```html
-<input class='synapseInput' />
+<div data-synapse-input></div>
+<div data-synapse-results></div>
 ```
 
 Add the JavaScript before your closing `</body>` tag:
 
 ```html
-<script src='https://synapse-v2.netlify.com/synapse.js'></script>
+<script src='https://synapse-v2.netlify.com/index.js'></script>
+<script>
+	new SynapseInject()
+</script>
 ```
 
-That's it! Then just type something in the input element and hit enter. Synapse will automatically recursively crawl links starting with the ones found on the current page and deliver search results.
-
-Additionally, you can also have any element toggle the search pane with the `synapseToggle` class:
-
-```html
-<a class='synapseToggle'>Show Search</a>
-```
+That's it! Then just type something in the input. Synapse will automatically recursively crawl links starting with the ones found on the current page and deliver search results.
 
 ## With React
 
@@ -43,11 +41,12 @@ yarn add synapse-search
 ### Usage
 
 ```jsx
-import { Synapse } from 'synapse-search'
+import { SynapseInput, SynapseResults } from 'synapse-search'
 
 ...
 
-<Synapse />
+<SynapseInput />
+<SynapseResults />
 ```
 
 ### Options

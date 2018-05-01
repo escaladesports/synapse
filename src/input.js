@@ -12,6 +12,17 @@ function onEnter(e) {
 		termState.changeTerm(e.target.value)
 	}
 }
+function moveCursorToEnd(el) {
+	if (typeof el.selectionStart == 'number') {
+		el.selectionStart = el.selectionEnd = el.value.length
+	}
+	else if (typeof el.createTextRange != 'undefined') {
+		el.focus()
+		var range = el.createTextRange()
+		range.collapse(false)
+		range.select()
+	}
+}
 
 class Input extends Component{
 	constructor(props){
@@ -19,6 +30,10 @@ class Input extends Component{
 	}
 	componentDidMount(){
 		this.input.addEventListener('keyup', onEnter)
+		if(this.props.focus){
+			this.input.focus()
+			moveCursorToEnd(this.input)
+		}
 	}
 	componentWillUnmount(){
 		this.input.removeEventListener('keyup', onEnter)
