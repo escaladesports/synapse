@@ -39,6 +39,9 @@
 		<div data-synapse-modal></div>
 		<script src='https://synapse-v2.netlify.com/inject.js'></script>
 		<script>
+			if(location.protocol === 'https:'){
+				location.href = 'http://synapse-v2.netlify.com'
+			}
 			new SynapseInject({
 				origin: 'http://www.espn.com/'
 			})
