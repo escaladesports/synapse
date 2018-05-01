@@ -18,7 +18,7 @@
 	 "analyze": "esca-scripts analyze --react --component --input ./src/index.js",
 	 "build": "run-p build:main build:browser",
     "build:main": "esca-scripts build --react --component --babel --input src --output dist --multiple --styledJsx",
-    "build:browser": "esca-scripts build --react --component --input ./src/index.js --output dist-browser --multiple --styledJsx --minify --component --name SynapseInject && cp src-docs/index.html dist-browser/index.html",
+    "build:browser": "esca-scripts build --browser --react --component --input ./src/index.js --output dist-browser --multiple --styledJsx --minify --component --name SynapseInject && cp src-docs/index.html dist-browser/index.html",
     "dev": "esca-scripts dev ---input './dev/dev.js, ./dev/index.html' --react --browser --styledJsx",
     "prepublishOnly": "npm run build",
     "reset": "esca-scripts reset",
