@@ -1,6 +1,6 @@
 {
   "name": "synapse-search",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "keywords": [
     "synapse",
     "search",
@@ -15,8 +15,8 @@
   },
   "license": "MIT",
   "scripts": {
-	 "analyze": "esca-scripts analyze --react --component --input ./src/index.js",
-	 "build": "run-p build:main build:browser",
+    "analyze": "esca-scripts analyze --react --component --input ./src/index.js",
+    "build": "run-p build:main build:browser",
     "build:main": "esca-scripts build --react --component --babel --input src --output dist --multiple --styledJsx",
     "build:browser": "esca-scripts build --browser --react --component --input ./src/inject.js --output dist-browser --multiple --styledJsx --minify --component --name SynapseInject && cp src-example/index.html dist-browser/index.html",
     "dev": "esca-scripts dev ---input './dev/dev.js, ./dev/index.html' --react --browser --styledJsx",
