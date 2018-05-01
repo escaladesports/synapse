@@ -23,6 +23,7 @@ function parsePage(url, text) {
 			this.fetchedUrls.indexOf(href) === -1 &&
 			this.urls.indexOf(href) === -1
 		) {
+			this.fetchedUrls.push(href)
 			this.urls.push(href)
 			this.urlText[href] = linkEls[i].textContent
 		}
