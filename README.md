@@ -2,6 +2,8 @@
 
 Back end-less, config-less client side search. Uses React, but also works without.
 
+[Demo](https://synapse-v2.netlify.com/)
+
 ## Without React
 
 Create an element with a data attribute of `data-synapse-input` that Synapse will automatically inject the input tag into as well as a `data-synapse-results` element for the results.
