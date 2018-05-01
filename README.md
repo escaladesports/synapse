@@ -49,7 +49,36 @@ import { SynapseInput, SynapseResults } from 'synapse-search'
 <SynapseResults />
 ```
 
+Alternatively there is also a fully styled modal that will open up when the user starts typing. This can be useful for a quick drop-in solution:
+
+```jsx
+import { SynapseInput, SynapseModal } from 'synapse-search'
+
+...
+
+<SynapseInput />
+<SynapseModal />
+```
+
 ### Options
+
+Without React, you can pass options to the constructor:
+
+```javascript
+new SynapseInject({
+	matchThreshold: .01
+})
+```
+
+With React, you can use the SynapseConfig function:
+
+```jsx
+import { SynapseConfig } from 'synapse-search'
+
+SynapseConfig({
+	matchThreshold: .01
+})
+```
 
 Prop | Description | Default
 --- | --- | ---
