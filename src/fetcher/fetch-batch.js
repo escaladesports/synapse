@@ -30,7 +30,6 @@ async function fetchBatch(term){
 		let promises = []
 		while (urls.length && (batch.length + promises.length) < this.options.batchSize){
 			let url = urls.shift()
-			console.log(url)
 			promises.push(this.fetchUrl(url))
 		}
 		let data = await Promise.all(promises)

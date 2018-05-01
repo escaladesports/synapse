@@ -9,7 +9,9 @@ function onChange(e) {
 function onEnter(e) {
 	if (e.keyCode === 13) {
 		e.preventDefault()
-		termState.changeTerm(e.target.value)
+		let val = e.target.value
+		termState.changeTerm('')
+		termState.changeTerm(val)
 	}
 }
 function moveCursorToEnd(el) {

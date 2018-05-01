@@ -15,10 +15,13 @@ class Modal extends React.Component{
 	closeModal(){
 		this.setState({ open: false })
 	}
-	onTermChange({ term }){
-		if(!this.state.open && term && this.lastTerm !== term){
+	onTermChange({ term }) {
+		console.log('Term change', term)
+		console.log('Last term', this.lastTerm)
+		if (!this.state.open && term && this.lastTerm !== term) {
 			this.setState({ open: true })
 		}
+		this.lastTerm = term
 	}
 	componentDidMount(){
 		termState.subscribe(this.onTermChange)
