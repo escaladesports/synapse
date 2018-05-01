@@ -22,8 +22,6 @@ class Modal extends React.Component{
 		}
 	}
 	onTermChange({ term }) {
-		console.log('Term change', term)
-		console.log('Last term', this.lastTerm)
 		if (!this.state.open && term && this.lastTerm !== term) {
 			this.setState({ open: true })
 		}
