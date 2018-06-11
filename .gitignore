@@ -19,7 +19,6 @@ docs/build/
 dist-*
 coverage/
 .eslintcache
-.postcssrc
 webpack.config.js
 .babelrc
 
