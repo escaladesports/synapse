@@ -23,9 +23,9 @@ class SynapseInject{
 		this.inject()
 	}
 	inject(){
-		queryRender('input', <SynapseInput />)
-		queryRender('results', <SynapseResults />)
-		queryRender('modal', <SynapseModal />)
+		queryRender(`input`, <SynapseInput />)
+		queryRender(`results`, <SynapseResults />)
+		queryRender(`modal`, <SynapseModal />)
 	}
 }
 
