@@ -43,7 +43,7 @@ class Modal extends React.Component{
 	}
 	render(){
 		return this.state.open ?
-			<div className='synapseModal' onClick={this.closeModal}>
+			<div className='synapseModal' onClick={this.closeModal} style={{zIndex: 999}}>
 				<div className='synapseContent' onClick={e => e.stopPropagation()}>
 					<Input focus {...this.props} />
 					<Results {...this.props} />
@@ -61,7 +61,6 @@ class Modal extends React.Component{
 							bottom: 0;
 							left: 0;
 							background: rgba(0, 0, 0, .75);
-							zIndex: 999;
 							overflow-x: auto;
 							padding: 40px;
 							color: #ccc;
