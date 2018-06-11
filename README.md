@@ -91,6 +91,7 @@ contentSelector | A query selector of the content on the page to crawl | `"body"
 matchThreshold | Do not show result if match is under this threshold | `.007`
 batchSize | The number of pages to fetch per batch | `6`
 batchSearch | The number of batches to create per search | `3`
+open | Set to `true` or `false` to open or close the modal | `false`
 
 ## Things to Consider
 

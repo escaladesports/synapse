@@ -8,12 +8,13 @@ import {
 	SynapseInject,
 } from '../src'
 
-
+/*
 let synapse = new SynapseInject({
 	origin: 'http://www.espn.com/'
 })
+*/
 
-/*
+
 SynapseConfig({
 	createLink: (href, contents) => < span > { contents }</span >,
 	origin: 'http://www.espn.com/'
@@ -25,11 +26,18 @@ document.body.appendChild(containerEl)
 document.body.style.height = '300vh'
 
 class Page extends React.Component{
+	constructor(props){
+		super(props)
+		this.state = {
+			open: false
+		}
+	}
 	render(){
 		return(
 			<main>
 				<SynapseInput />
-				<SynapseModal />
+				<div onClick={() => this.setState({ open: true })}>Open Modal</div>
+				<SynapseModal open={this.state.open} />
 			</main>
 		)
 	}
@@ -39,4 +47,3 @@ render(
 	<Page />,
 	containerEl
 )
-*/

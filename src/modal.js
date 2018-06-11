@@ -1,5 +1,4 @@
 import React from 'react'
-import { Subscribe } from 'statable'
 import { ThreeBounce } from 'better-react-spinkit'
 import Input from './input'
 import Results from './results'
@@ -8,7 +7,9 @@ import termState from './states/term'
 class Modal extends React.Component{
 	constructor(props){
 		super(props)
-		this.state = { open: false }
+		this.state = {
+			open: props.open || false
+		}
 		this.closeModal = this.closeModal.bind(this)
 		this.escapeKey = this.escapeKey.bind(this)
 		this.onTermChange = this.onTermChange.bind(this)
@@ -34,6 +35,11 @@ class Modal extends React.Component{
 	componentWillUnmount(){
 		termState.unsubscribe(this.onTermChange)
 		document.removeEventListener('keyup', this.escapeKey)
+	}
+	componentWillReceiveProps(props){
+		if ('open' in props) {
+			this.setState({ open: props.open })
+		}
 	}
 	render(){
 		return this.state.open ?
