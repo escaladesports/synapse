@@ -18,6 +18,7 @@
     "build": "esca-scripts build --input src --output dist",
     "build:browser": "esca-scripts bundle --input ./src/inject.js --output dist-browser && cp src-example/index.html dist-browser/index.html",
     "dev": "esca-scripts dev ---input './dev/dev.js, ./dev/index.html'",
+    "netlify": "opn https://app.netlify.com/sites/synapse-v2/deploys",
     "prepublishOnly": "npm run build",
     "reset": "esca-scripts reset",
     "test": "echo 'no test'",
