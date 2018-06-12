@@ -66,6 +66,7 @@ const fns = {
 	prioritizeUrls,
 }
 
+/*
 self.addEventListener('message', e => {
 	let { id, fn, args } = JSON.parse(e.data)
 	let res = fns[fn](...args)
@@ -74,3 +75,13 @@ self.addEventListener('message', e => {
 		res,
 	}))
 })
+*/
+
+export default function (data) {
+	let { id, fn, args } = data
+	let res = fns[fn](...args)
+	return {
+		id,
+		res,
+	}
+}

@@ -7,7 +7,6 @@ import searchMoreBatches from './search-more-batches'
 class Fetcher {
 	constructor(options) {
 		this.options = {
-			origin: document.location.origin,
 			batchSize: 6,
 			batchSearch: 3,
 			matchThreshold: .007,

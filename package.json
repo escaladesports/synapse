@@ -15,17 +15,16 @@
   },
   "license": "MIT",
   "scripts": {
-    "analyze": "esca-scripts analyze --react --component --input ./src/index.js",
-    "build": "esca-scripts build --react --component --babel --input src --output dist --multiple --styledJsx",
-    "build:browser": "esca-scripts build --browser --react --component --input ./src/inject.js --output dist-browser --multiple --styledJsx --minify --component --name SynapseInject && cp src-example/index.html dist-browser/index.html",
-    "dev": "esca-scripts dev ---input './dev/dev.js, ./dev/index.html' --react --browser --styledJsx",
+    "build": "esca-scripts build --input src --output dist",
+    "build:browser": "esca-scripts bundle --input ./src/inject.js --output dist-browser && cp src-example/index.html dist-browser/index.html",
+    "dev": "esca-scripts dev ---input './dev/dev.js, ./dev/index.html'",
     "prepublishOnly": "npm run build",
     "reset": "esca-scripts reset",
     "test": "echo 'no test'",
     "travis": "opn https://travis-ci.org/escaladesports/synapse/branches"
   },
   "devDependencies": {
-    "esca-scripts": "^0.14.7",
+    "esca-scripts": "^1.4.0",
     "opn-cli": "^3.1.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1"

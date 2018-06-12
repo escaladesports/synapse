@@ -7,9 +7,13 @@ async function fetchBatch(term){
 	const urlText = this.urlText
 
 	// Add origin if first time running
+	if(!this.options.origin){
+		this.options.origin = `${document.location.origin}/`
+	}
 	if (!urls.length && !this.fetchedUrls.length){
 		urls.push(this.options.origin)
 	}
+	console.log(urls)
 
 	// Prioritize URLs
 	const urlResult = await prioritizeUrls(urls.map((id, key) => {

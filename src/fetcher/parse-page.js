@@ -5,6 +5,10 @@ function parsePage(url, text) {
 
 	let links = []
 	let linkEls = doc.querySelectorAll('a')
+
+	if (!this.options.origin) {
+		this.options.origin = `${document.location.origin}/`
+	}
 	for (let i = 0; i < linkEls.length; i++) {
 		let href = linkEls[i].getAttribute('href')
 		if(!href || href.charAt(0) === '#') continue
