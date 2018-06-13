@@ -9,5 +9,5 @@ export {
 	SynapseResults,
 	SynapseModal,
 	SynapseConfig,
-	SynapseInject
+	SynapseInject,
 }

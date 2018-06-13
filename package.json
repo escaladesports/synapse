@@ -16,7 +16,7 @@
   "license": "MIT",
   "scripts": {
     "build": "esca-scripts build --input src --output dist",
-    "build:browser": "esca-scripts bundle --input ./src/inject.js --output dist-browser && cp src-example/index.html dist-browser/index.html",
+    "build:browser": "esca-scripts bundle --input ./src/inject.js --output ./dist-browser && cp src-example/index.html dist-browser/index.html",
     "dev": "esca-scripts dev ---input './dev/dev.js, ./dev/index.html'",
     "netlify": "opn https://app.netlify.com/sites/synapse-v2/deploys",
     "prepublishOnly": "npm run build",
@@ -36,7 +36,6 @@
     "lunr": "^2.1.6",
     "npm-run-all": "^4.1.2",
     "statable": "^0.2.3",
-    "styled-jsx": "^2.2.6",
-    "worker-loader": "^2.0.0"
+    "styled-jsx": "^2.2.6"
   }
 }

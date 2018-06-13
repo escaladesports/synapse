@@ -15,6 +15,9 @@ class Modal extends React.Component{
 		this.onTermChange = this.onTermChange.bind(this)
 	}
 	closeModal(){
+		if(this.props.onClose){
+			this.props.onClose()
+		}
 		this.setState({ open: false })
 	}
 	escapeKey(e){
