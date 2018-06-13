@@ -47,6 +47,7 @@ class Modal extends React.Component{
 	render(){
 		return this.state.open ?
 			<div className='synapseModal' onClick={this.closeModal} style={{zIndex: 999}}>
+				<div className='synapseClose'>×</div>
 				<div className='synapseContent' onClick={e => e.stopPropagation()}>
 					<Input focus {...this.props} />
 					<Results {...this.props} />
@@ -102,7 +103,14 @@ class Modal extends React.Component{
 						.synapseModal *:before{
 							box-sizing: inherit;
 						}
-
+						.synapseClose{
+							font-size: 40px;
+							user-select: none;
+							position: absolute;
+							right: 20px;
+							top: 10px;
+							cursor: pointer;
+						}
 						.synapseContent{
 							max-width: 900px;
 							margin: 0 auto;

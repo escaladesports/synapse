@@ -17,7 +17,7 @@
   "scripts": {
     "build": "esca-scripts build --input src --output dist",
     "build:browser": "esca-scripts bundle --input ./src/inject.js --output ./dist-browser && cp src-example/index.html dist-browser/index.html",
-    "dev": "esca-scripts dev ---input './dev/dev.js, ./dev/index.html'",
+    "dev": "esca-scripts dev ---input './dev/index.html'",
     "netlify": "opn https://app.netlify.com/sites/synapse-v2/deploys",
     "prepublishOnly": "npm run build",
     "reset": "esca-scripts reset",
@@ -25,7 +25,7 @@
     "travis": "opn https://travis-ci.org/escaladesports/synapse/branches"
   },
   "devDependencies": {
-    "esca-scripts": "^1.4.0",
+    "esca-scripts": "^1.4.2",
     "opn-cli": "^3.1.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1"

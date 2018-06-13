@@ -20,9 +20,6 @@ SynapseConfig({
 	origin: 'http://www.espn.com/'
 })
 
-const containerEl = document.createElement('div')
-document.body.appendChild(containerEl)
-
 document.body.style.height = '300vh'
 
 class Page extends React.Component{
@@ -45,5 +42,5 @@ class Page extends React.Component{
 
 render(
 	<Page />,
-	containerEl
+	document.querySelector('#container')
 )
