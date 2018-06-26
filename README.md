@@ -62,6 +62,14 @@ import { SynapseInput, SynapseModal } from 'synapse-search'
 <SynapseModal />
 ```
 
+### Polyfill
+
+Syanapse requires [Object.assign](http://kangax.github.io/compat-table/es6/#test-Object_static_methods_Object.assign) to work properly. If your target browsers don't support this, it will need to be polyfilled in. The best way to do this is usually to include [polyfill.io](https://polyfill.io/) on any pages that use Synapse:
+
+```html
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+```
+
 ### Options
 
 Without React, you can pass options to the constructor:
